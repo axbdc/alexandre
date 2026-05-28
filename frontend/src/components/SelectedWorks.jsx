@@ -1,8 +1,10 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLang, t } from "../context/LanguageContext";
 import { PROJECTS, CATEGORIES, SECTION_LABELS } from "../data/content";
 import useReveal from "../hooks/useReveal";
+import { ArrowUpRight } from "lucide-react";
+import ProjectModal from "./ProjectModal";
 
 const localize = (v, lang) => (typeof v === "string" ? v : t(v, lang));
 
@@ -10,6 +12,7 @@ const SelectedWorks = () => {
     const { lang } = useLang();
     const rootRef = useReveal([lang]);
     const [active, setActive] = useState("all");
+    const [openId, setOpenId] = useState(null);
 
     const filtered = useMemo(
         () =>
@@ -27,6 +30,27 @@ const SelectedWorks = () => {
         }
         return out;
     }, []);
+
+    const openIndex = useMemo(
+        () => filtered.findIndex((p) => p.id === openId),
+        [filtered, openId],
+    );
+
+    const open = filtered[openIndex] || null;
+
+    const close = useCallback(() => setOpenId(null), []);
+    const goPrev = useCallback(() => {
+        if (!filtered.length) return;
+        const next =
+            openIndex <= 0 ? filtered.length - 1 : openIndex - 1;
+        setOpenId(filtered[next].id);
+    }, [filtered, openIndex]);
+    const goNext = useCallback(() => {
+        if (!filtered.length) return;
+        const next =
+            openIndex >= filtered.length - 1 ? 0 : openIndex + 1;
+        setOpenId(filtered[next].id);
+    }, [filtered, openIndex]);
 
     return (
         <section
@@ -116,7 +140,6 @@ const SelectedWorks = () => {
                         {filtered.map((p, i) => (
                             <motion.li
                                 key={p.id}
-                                data-testid={`project-card-${p.id}`}
                                 initial={{ opacity: 0, y: 24 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{
@@ -124,36 +147,46 @@ const SelectedWorks = () => {
                                     delay: i * 0.04,
                                     ease: [0.22, 1, 0.36, 1],
                                 }}
-                                className="group"
                             >
-                                <div className="project-image-wrap aspect-[4/5]">
-                                    <img
-                                        src={p.cover}
-                                        alt={t(p.title, lang)}
-                                        loading="lazy"
-                                    />
-                                </div>
-                                <div className="mt-5 flex items-start justify-between gap-4">
-                                    <div className="min-w-0">
-                                        <div className="overline mb-2 truncate">
-                                            {t(p.subtitle, lang)}
-                                        </div>
-                                        <h3 className="font-display text-xl md:text-2xl text-ink truncate group-hover:text-terracotta transition-colors duration-500">
-                                            {t(p.title, lang)}
-                                        </h3>
+                                <button
+                                    type="button"
+                                    onClick={() => setOpenId(p.id)}
+                                    data-testid={`project-card-${p.id}`}
+                                    aria-label={t(p.title, lang)}
+                                    className="group block w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-ink"
+                                >
+                                    <div className="relative project-image-wrap aspect-[4/5]">
+                                        <img
+                                            src={p.cover}
+                                            alt={t(p.title, lang)}
+                                            loading="lazy"
+                                        />
+                                        <span className="pointer-events-none absolute right-4 top-4 h-10 w-10 rounded-full bg-bone/0 group-hover:bg-bone/95 backdrop-blur-sm flex items-center justify-center text-ink opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-1 group-hover:translate-y-0">
+                                            <ArrowUpRight size={16} />
+                                        </span>
                                     </div>
-                                    <div className="text-right shrink-0">
-                                        <div className="text-xs md:text-sm text-graphite truncate max-w-[140px]">
-                                            {localize(p.client, lang)}
+                                    <div className="mt-5 flex items-start justify-between gap-4">
+                                        <div className="min-w-0">
+                                            <div className="overline mb-2 truncate">
+                                                {t(p.subtitle, lang)}
+                                            </div>
+                                            <h3 className="font-display text-xl md:text-2xl text-ink truncate group-hover:text-terracotta transition-colors duration-500">
+                                                {t(p.title, lang)}
+                                            </h3>
                                         </div>
-                                        <div className="text-xs md:text-sm text-mist">
-                                            {p.year}
+                                        <div className="text-right shrink-0">
+                                            <div className="text-xs md:text-sm text-graphite truncate max-w-[140px]">
+                                                {localize(p.client, lang)}
+                                            </div>
+                                            <div className="text-xs md:text-sm text-mist">
+                                                {p.year}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <p className="mt-3 text-sm text-graphite line-clamp-3">
-                                    {t(p.summary, lang)}
-                                </p>
+                                    <p className="mt-3 text-sm text-graphite line-clamp-3">
+                                        {t(p.summary, lang)}
+                                    </p>
+                                </button>
                             </motion.li>
                         ))}
                     </motion.ul>
@@ -167,6 +200,15 @@ const SelectedWorks = () => {
                     </p>
                 )}
             </div>
+
+            <ProjectModal
+                project={open}
+                index={openIndex >= 0 ? openIndex : 0}
+                total={filtered.length}
+                onClose={close}
+                onPrev={goPrev}
+                onNext={goNext}
+            />
         </section>
     );
 };

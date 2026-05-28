@@ -560,3 +560,74 @@ export const SOCIAL = {
     linkedin: "https://www.linkedin.com/in/alexandre-cosme-857a59198/",
     location: "Ribamar, Ericeira",
 };
+
+// ---- Enrich each project with placeholder long details, gallery and tools ----
+// You can override any of these fields directly on a project above.
+
+const TOOLS_BY_CATEGORY = {
+    ar3d: ["Blender", "Spark AR", "Photoshop", "After Effects"],
+    graphic: ["Illustrator", "Photoshop", "InDesign", "Figma"],
+    photo: ["Lightroom", "Photoshop", "Sony Alpha"],
+    web: ["Figma", "HTML / CSS", "React", "Framer"],
+    motion: ["After Effects", "Premiere Pro", "Blender"],
+};
+
+const DEFAULT_DETAILS = {
+    PT: (p) =>
+        `Este projeto explora ${p.subtitle.PT.toLowerCase()} num contexto de ${p.client && typeof p.client === "object" ? p.client.PT : p.client || "cliente"}. O ponto de partida foi um brief claro: encontrar uma linguagem visual que conjugasse ritmo, contraste e elegância — sem nunca cair no óbvio.
+
+A abordagem assentou em três fases — pesquisa, exploração e refinamento. Comecei por mapear referências, materiais e paletas; depois construí uma série de variações para testar direção; por fim, consolidei o sistema final com atenção a cada detalhe tipográfico, fotográfico e de composição.
+
+O resultado é um conjunto de peças coerente, com personalidade própria e pronto para escalar entre suportes — print, digital, AR e vídeo. (Esta descrição é um placeholder — substitui pelo case study real.)`,
+    EN: (p) =>
+        `This project explores ${p.subtitle.EN.toLowerCase()} in the context of ${p.client && typeof p.client === "object" ? p.client.EN : p.client || "client"}. The starting point was a clear brief: find a visual language that combines rhythm, contrast and elegance — without ever falling into the obvious.
+
+The approach was built on three phases — research, exploration and refinement. I first mapped references, materials and palettes; then built a series of variations to test direction; finally, consolidated the final system with attention to every typographic, photographic and compositional detail.
+
+The result is a coherent set of pieces with a personality of their own, ready to scale across media — print, digital, AR and video. (This is placeholder copy — replace with the real case study.)`,
+};
+
+const GALLERY_BY_CATEGORY = {
+    ar3d: [
+        "https://images.pexels.com/photos/4040601/pexels-photo-4040601.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://images.pexels.com/photos/13907756/pexels-photo-13907756.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://images.pexels.com/photos/9874642/pexels-photo-9874642.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    ],
+    graphic: [
+        "https://images.pexels.com/photos/5706015/pexels-photo-5706015.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://images.pexels.com/photos/3850515/pexels-photo-3850515.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://images.pexels.com/photos/4467735/pexels-photo-4467735.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    ],
+    photo: [
+        "https://images.pexels.com/photos/5578703/pexels-photo-5578703.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://images.pexels.com/photos/1032650/pexels-photo-1032650.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://images.pexels.com/photos/2613260/pexels-photo-2613260.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    ],
+    web: [
+        "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://images.pexels.com/photos/265125/pexels-photo-265125.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://images.pexels.com/photos/196645/pexels-photo-196645.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    ],
+    motion: [
+        "https://images.pexels.com/photos/2510428/pexels-photo-2510428.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://images.pexels.com/photos/2179483/pexels-photo-2179483.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://images.pexels.com/photos/2531546/pexels-photo-2531546.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    ],
+};
+
+PROJECTS.forEach((p) => {
+    if (!p.details) {
+        p.details = {
+            PT: DEFAULT_DETAILS.PT(p),
+            EN: DEFAULT_DETAILS.EN(p),
+        };
+    }
+    if (!p.gallery) {
+        const base = GALLERY_BY_CATEGORY[p.category] || [];
+        // Use cover + 3 placeholders. Replace with real images later.
+        p.gallery = [p.cover, ...base];
+    }
+    if (!p.tools) {
+        p.tools = TOOLS_BY_CATEGORY[p.category] || [];
+    }
+});
