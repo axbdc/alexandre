@@ -479,6 +479,22 @@ export const EXPERIENCE = [
             PT: "AR, design gráfico, 3D, web design, produção gráfica.",
             EN: "AR, graphic design, 3D, web design, graphic production.",
         },
+        details: {
+            PT: [
+                "Conceção e produção de experiências de Realidade Aumentada para campanhas de marca, ativações e eventos.",
+                "Modelação e otimização de assets 3D em Blender para uso em AR, web e social.",
+                "Design gráfico de campanhas, KV e adaptações multi-suporte para clientes da agência.",
+                "Web design e produção de landing pages e mini-sites em Figma + HTML/CSS.",
+                "Apoio à produção gráfica e preparação de artes finais para impressão e produção física.",
+            ],
+            EN: [
+                "Concept and production of Augmented Reality experiences for brand campaigns, activations and events.",
+                "Modelling and optimisation of 3D assets in Blender for AR, web and social use.",
+                "Graphic design for campaigns, KVs and multi-format adaptations for agency clients.",
+                "Web design and production of landing pages and microsites in Figma + HTML/CSS.",
+                "Support of graphic production and final art prep for print and physical production.",
+            ],
+        },
     },
     {
         period: "2024",
@@ -488,6 +504,22 @@ export const EXPERIENCE = [
         scope: {
             PT: "Campanhas publicitárias, web design, packaging, expositores.",
             EN: "Advertising campaigns, web design, packaging, stands.",
+        },
+        details: {
+            PT: [
+                "Desenvolvimento de campanhas publicitárias do conceito ao deliverable final.",
+                "Design gráfico para suportes online e offline — redes sociais, print, OOH.",
+                "Web design e protótipos em Figma para websites e landings de clientes.",
+                "Conceção de packaging e expositores PLV para retalho e eventos.",
+                "Trabalho diário em equipa criativa: briefing, iteração com art directors e apresentação a cliente.",
+            ],
+            EN: [
+                "Development of advertising campaigns from concept to final deliverable.",
+                "Graphic design for online and offline media — social, print, OOH.",
+                "Web design and prototyping in Figma for client websites and landings.",
+                "Packaging design and POS displays for retail and events.",
+                "Daily work in a creative team: briefing, iteration with art directors and client presentation.",
+            ],
         },
     },
     {
@@ -499,6 +531,20 @@ export const EXPERIENCE = [
             PT: "Eventos desportivos e sessões privadas.",
             EN: "Sporting events and private sessions.",
         },
+        details: {
+            PT: [
+                "Cobertura fotográfica de provas e eventos desportivos — surf, automobilismo e amadores.",
+                "Sessões privadas em estúdio e exterior — retrato, casal e família.",
+                "Edição e color grading em Lightroom com entrega final em galeria privada.",
+                "Gestão direta com clientes: orçamentação, agenda, contrato e entrega.",
+            ],
+            EN: [
+                "Photographic coverage of sporting events — surf, motorsport and amateur races.",
+                "Private sessions in studio and outdoors — portrait, couples and family.",
+                "Editing and colour grading in Lightroom with final delivery via private gallery.",
+                "Direct client management: quoting, scheduling, contracts and delivery.",
+            ],
+        },
     },
     {
         period: "2022 — 2023",
@@ -508,6 +554,20 @@ export const EXPERIENCE = [
         scope: {
             PT: "Instalação de sinal de vídeo e áudio, operação de câmara, organização de eventos.",
             EN: "Video and audio signal install, camera operation, event organisation.",
+        },
+        details: {
+            PT: [
+                "Instalação e processamento de sinal de vídeo e áudio em eventos ao vivo.",
+                "Operação de câmara em ambiente indoor e outdoor — multi-câmara e câmara isolada.",
+                "Organização logística de eventos com foco em luz, imagem e som.",
+                "Trabalho em equipa técnica sob pressão de tempo e gestão de imprevistos.",
+            ],
+            EN: [
+                "Install and processing of video and audio signal in live events.",
+                "Camera operation in indoor and outdoor settings — multi-camera and isolated camera.",
+                "Logistical organisation of events focused on light, image and sound.",
+                "Teamwork under time pressure and on-the-fly problem solving.",
+            ],
         },
     },
 ];
