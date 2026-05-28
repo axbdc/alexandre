@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useLang, t } from "../context/LanguageContext";
 import { PROJECTS, SECTION_LABELS } from "../data/content";
 import useReveal from "../hooks/useReveal";
@@ -10,53 +10,58 @@ const SelectedWorks = () => {
     const trackRef = useRef(null);
     const [active, setActive] = useState(0);
     const [progress, setProgress] = useState(0);
+    const [maxScroll, setMaxScroll] = useState(0);
 
-    // Recompute active card and progress on scroll
+    const recompute = useCallback(() => {
+        const el = trackRef.current;
+        if (!el) return;
+        const cards = el.querySelectorAll("[data-card]");
+        if (!cards.length) return;
+        const max = el.scrollWidth - el.clientWidth;
+        setMaxScroll(max);
+        // Active = card whose left edge is closest to current scrollLeft (+small offset)
+        const probe = el.scrollLeft + 24;
+        let nearest = 0;
+        let best = Infinity;
+        cards.forEach((c, i) => {
+            const d = Math.abs(c.offsetLeft - probe);
+            if (d < best) {
+                best = d;
+                nearest = i;
+            }
+        });
+        setActive(nearest);
+        setProgress(max > 0 ? el.scrollLeft / max : 0);
+    }, []);
+
     useEffect(() => {
         const el = trackRef.current;
         if (!el) return;
-        const onScroll = () => {
-            const cards = el.querySelectorAll("[data-card]");
-            if (!cards.length) return;
-            const center = el.scrollLeft + el.clientWidth / 2;
-            let nearest = 0;
-            let best = Infinity;
-            cards.forEach((c, i) => {
-                const cx = c.offsetLeft + c.offsetWidth / 2;
-                const d = Math.abs(cx - center);
-                if (d < best) {
-                    best = d;
-                    nearest = i;
-                }
-            });
-            setActive(nearest);
-            const max = el.scrollWidth - el.clientWidth;
-            setProgress(max > 0 ? el.scrollLeft / max : 0);
-        };
-        onScroll();
+        recompute();
+        const onScroll = () => recompute();
         el.addEventListener("scroll", onScroll, { passive: true });
-        window.addEventListener("resize", onScroll);
+        window.addEventListener("resize", recompute);
         return () => {
             el.removeEventListener("scroll", onScroll);
-            window.removeEventListener("resize", onScroll);
+            window.removeEventListener("resize", recompute);
         };
-    }, []);
+    }, [recompute]);
 
-    const scrollTo = (i) => {
+    const scrollToCard = (i) => {
         const el = trackRef.current;
         if (!el) return;
         const cards = el.querySelectorAll("[data-card]");
         const target = cards[Math.max(0, Math.min(cards.length - 1, i))];
-        if (target) {
-            el.scrollTo({
-                left: target.offsetLeft - (el.clientWidth - target.offsetWidth) / 2,
-                behavior: "smooth",
-            });
-        }
+        if (!target) return;
+        // Align card left edge with the track's left padding (snap-start style)
+        el.scrollTo({ left: target.offsetLeft, behavior: "smooth" });
     };
 
-    const next = () => scrollTo(active + 1);
-    const prev = () => scrollTo(active - 1);
+    const next = () => scrollToCard(active + 1);
+    const prev = () => scrollToCard(active - 1);
+
+    const atStart = active === 0;
+    const atEnd = active >= PROJECTS.length - 1 || progress > 0.995;
 
     return (
         <section
@@ -86,7 +91,7 @@ const SelectedWorks = () => {
                         <div className="flex items-center gap-2">
                             <button
                                 onClick={prev}
-                                disabled={active === 0}
+                                disabled={atStart}
                                 data-testid="works-prev"
                                 aria-label="Previous project"
                                 className="h-12 w-12 inline-flex items-center justify-center border border-ink text-ink hover:bg-ink hover:text-bone disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-ink transition-colors duration-500"
@@ -95,7 +100,7 @@ const SelectedWorks = () => {
                             </button>
                             <button
                                 onClick={next}
-                                disabled={active === PROJECTS.length - 1}
+                                disabled={atEnd}
                                 data-testid="works-next"
                                 aria-label="Next project"
                                 className="h-12 w-12 inline-flex items-center justify-center border border-ink text-ink hover:bg-ink hover:text-bone disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-ink transition-colors duration-500"
@@ -107,24 +112,24 @@ const SelectedWorks = () => {
                 </div>
             </div>
 
-            {/* Horizontal track */}
+            {/* Horizontal track — uses snap-start with scroll-padding to align cards
+                with the page gutter. No spacer hacks, no center math. */}
             <div
                 ref={trackRef}
                 data-testid="works-track"
-                className="relative overflow-x-auto no-scrollbar snap-x snap-mandatory scroll-smooth"
-                style={{ scrollPaddingLeft: "max(1.5rem, calc((100vw - 1400px) / 2 + 3rem))" }}
+                className="relative overflow-x-auto no-scrollbar snap-x snap-mandatory"
+                style={{
+                    scrollPaddingLeft: "1.5rem",
+                    scrollPaddingRight: "1.5rem",
+                }}
             >
                 <ul className="flex gap-6 md:gap-10 px-6 md:px-12 pb-2 pt-4">
-                    {/* leading spacer to align first card with the container */}
-                    <li aria-hidden="true" className="shrink-0 w-0 md:w-[calc((100vw-1400px)/2)]" />
-                    {PROJECTS.map((p, i) => (
+                    {PROJECTS.map((p) => (
                         <li
                             key={p.id}
                             data-card
                             data-testid={`project-card-${p.id}`}
-                            className={`reveal shrink-0 snap-start w-[78vw] sm:w-[60vw] md:w-[42vw] lg:w-[36vw] xl:w-[460px] transition-opacity duration-700 ${
-                                active === i ? "opacity-100" : "opacity-70"
-                            }`}
+                            className="reveal shrink-0 snap-start w-[78vw] sm:w-[58vw] md:w-[40vw] lg:w-[32vw] xl:w-[420px]"
                         >
                             <div className="project-image-wrap aspect-[4/5]">
                                 <img
@@ -156,7 +161,6 @@ const SelectedWorks = () => {
                             </p>
                         </li>
                     ))}
-                    <li aria-hidden="true" className="shrink-0 w-6 md:w-12" />
                 </ul>
             </div>
 
@@ -166,7 +170,9 @@ const SelectedWorks = () => {
                     <div
                         data-testid="works-progress"
                         className="absolute inset-y-0 left-0 bg-ink transition-[width] duration-300"
-                        style={{ width: `${Math.max(8, progress * 100)}%` }}
+                        style={{
+                            width: `${Math.max(6, progress * 100)}%`,
+                        }}
                     />
                 </div>
                 <div className="md:hidden mt-6 flex items-center justify-between">
@@ -180,7 +186,7 @@ const SelectedWorks = () => {
                     <div className="flex items-center gap-2">
                         <button
                             onClick={prev}
-                            disabled={active === 0}
+                            disabled={atStart}
                             aria-label="Previous project"
                             className="h-11 w-11 inline-flex items-center justify-center border border-ink text-ink disabled:opacity-30"
                         >
@@ -188,7 +194,7 @@ const SelectedWorks = () => {
                         </button>
                         <button
                             onClick={next}
-                            disabled={active === PROJECTS.length - 1}
+                            disabled={atEnd}
                             aria-label="Next project"
                             className="h-11 w-11 inline-flex items-center justify-center border border-ink text-ink disabled:opacity-30"
                         >
