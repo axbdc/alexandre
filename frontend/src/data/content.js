@@ -1,5 +1,6 @@
 // Content for Alexandre Cosme's portfolio. PT and EN versions.
-// Placeholders for projects — substitute later with real case studies.
+// 5 categories × 5 placeholder projects = 25 cards.
+// Replace cover images and copy with the real work later.
 
 export const NAV = {
     work: { PT: "Trabalhos", EN: "Work" },
@@ -29,83 +30,359 @@ export const HERO = {
 };
 
 export const SECTION_LABELS = {
-    work: { PT: "Trabalhos selecionados", EN: "Selected work" },
+    work: { PT: "Trabalhos", EN: "Work" },
     about: { PT: "Sobre", EN: "About" },
     services: { PT: "Serviços", EN: "Services" },
     experience: { PT: "Percurso", EN: "Experience" },
     contact: { PT: "Vamos trabalhar juntos", EN: "Let's work together" },
 };
 
+// -------- Categories --------
+export const CATEGORIES = [
+    { id: "all", label: { PT: "Todos", EN: "All" } },
+    { id: "ar3d", label: { PT: "AR & 3D", EN: "AR & 3D" } },
+    { id: "graphic", label: { PT: "Design Gráfico", EN: "Graphic Design" } },
+    { id: "photo", label: { PT: "Fotografia", EN: "Photography" } },
+    { id: "web", label: { PT: "Web", EN: "Web" } },
+    { id: "motion", label: { PT: "Motion", EN: "Motion" } },
+];
+
+// -------- Projects --------
+// 5 placeholders per category. Replace cover/title/summary with real work.
 export const PROJECTS = [
+    // ===== AR & 3D =====
     {
-        id: "ar-campaign",
-        index: "01",
+        id: "ar3d-01",
+        category: "ar3d",
         title: { PT: "Camada Aumentada", EN: "Augmented Layer" },
-        category: { PT: "AR / Campanha", EN: "AR / Campaign" },
-        client: { PT: "YDigital Media", EN: "YDigital Media" },
+        subtitle: { PT: "AR / Campanha", EN: "AR / Campaign" },
+        client: "YDigital Media",
         year: "2025",
         cover: "https://static.prod-images.emergentagent.com/jobs/70fc049d-38ef-4031-895b-4ae45bbdcd28/images/53e00eff551a39f250734a1fab64ab0846a35961911b6c40105b82e8c0b39173.png",
         summary: {
-            PT: "Experiência interativa em realidade aumentada para uma campanha de produto, ligando câmara, gesto e mensagem.",
-            EN: "Interactive augmented reality experience for a product campaign, connecting camera, gesture and message.",
+            PT: "Experiência interativa em AR para uma campanha de produto.",
+            EN: "Interactive AR experience for a product campaign.",
         },
-        aspect: "tall",
     },
     {
-        id: "3d-system",
-        index: "02",
+        id: "ar3d-02",
+        category: "ar3d",
         title: { PT: "Sistema Concêntrico", EN: "Concentric System" },
-        category: { PT: "3D / Direção de Arte", EN: "3D / Art Direction" },
+        subtitle: { PT: "3D / Direção de Arte", EN: "3D / Art Direction" },
         client: { PT: "Estudo pessoal", EN: "Personal study" },
         year: "2024",
-        cover: "https://images.pexels.com/photos/13907756/pexels-photo-13907756.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1200",
+        cover: "https://images.pexels.com/photos/13907756/pexels-photo-13907756.jpeg?auto=compress&cs=tinysrgb&w=1200",
         summary: {
-            PT: "Estudo em modelação 3D e composição: arcos sobrepostos, paleta quente, luz controlada — uma exploração de ritmo e profundidade.",
-            EN: "3D modelling and composition study: stacked arches, warm palette, controlled light — an exploration of rhythm and depth.",
+            PT: "Estudo em modelação 3D e composição de luz.",
+            EN: "Study in 3D modelling and light composition.",
         },
-        aspect: "wide",
     },
     {
-        id: "sport-photo",
-        index: "03",
+        id: "ar3d-03",
+        category: "ar3d",
+        title: { PT: "Filtro de Marca", EN: "Brand Filter" },
+        subtitle: { PT: "AR / Social", EN: "AR / Social" },
+        client: { PT: "Cliente — confidencial", EN: "Client — confidential" },
+        year: "2025",
+        cover: "https://images.pexels.com/photos/9874642/pexels-photo-9874642.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        summary: {
+            PT: "Filtro AR para Instagram e TikTok, integrado com a identidade visual.",
+            EN: "AR filter for Instagram and TikTok, integrated with the brand identity.",
+        },
+    },
+    {
+        id: "ar3d-04",
+        category: "ar3d",
+        title: { PT: "Vaso Maquette", EN: "Maquette Vessel" },
+        subtitle: { PT: "3D / Produto", EN: "3D / Product" },
+        client: { PT: "Estudo pessoal", EN: "Personal study" },
+        year: "2024",
+        cover: "https://images.pexels.com/photos/4040601/pexels-photo-4040601.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        summary: {
+            PT: "Render de produto cerâmico, ensaio de materiais e iluminação.",
+            EN: "Ceramic product render, materials and lighting study.",
+        },
+    },
+    {
+        id: "ar3d-05",
+        category: "ar3d",
+        title: { PT: "Stand Imersivo", EN: "Immersive Booth" },
+        subtitle: { PT: "AR / Evento", EN: "AR / Event" },
+        client: "YDigital Media",
+        year: "2025",
+        cover: "https://images.pexels.com/photos/8721318/pexels-photo-8721318.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        summary: {
+            PT: "Ativação AR para um stand de feira — câmara, gesto e marca.",
+            EN: "AR activation for a trade fair booth — camera, gesture and brand.",
+        },
+    },
+
+    // ===== Design Gráfico =====
+    {
+        id: "graphic-01",
+        category: "graphic",
+        title: { PT: "Identidade em Branco", EN: "Identity in Blank" },
+        subtitle: { PT: "Identidade", EN: "Identity" },
+        client: "GCI Media Group",
+        year: "2024",
+        cover: "https://images.pexels.com/photos/5706015/pexels-photo-5706015.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        summary: {
+            PT: "Papelaria, packaging e direção fotográfica para um estúdio.",
+            EN: "Stationery, packaging and photographic direction for a studio.",
+        },
+    },
+    {
+        id: "graphic-02",
+        category: "graphic",
+        title: { PT: "Campanha Tipográfica", EN: "Typographic Campaign" },
+        subtitle: { PT: "Editorial / Cartaz", EN: "Editorial / Poster" },
+        client: { PT: "Cliente agência", EN: "Agency client" },
+        year: "2024",
+        cover: "https://images.pexels.com/photos/3243/pen-calendar-to-do-checklist.jpg?auto=compress&cs=tinysrgb&w=1200",
+        summary: {
+            PT: "Série de cartazes baseada em composição tipográfica monocromática.",
+            EN: "Poster series based on monochromatic typographic composition.",
+        },
+    },
+    {
+        id: "graphic-03",
+        category: "graphic",
+        title: { PT: "Packaging Concept", EN: "Packaging Concept" },
+        subtitle: { PT: "Packaging", EN: "Packaging" },
+        client: "GCI Media Group",
+        year: "2024",
+        cover: "https://images.pexels.com/photos/3850515/pexels-photo-3850515.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        summary: {
+            PT: "Sistema de packaging para uma linha de produtos artesanais.",
+            EN: "Packaging system for an artisanal product line.",
+        },
+    },
+    {
+        id: "graphic-04",
+        category: "graphic",
+        title: { PT: "Anuário Editorial", EN: "Annual Editorial" },
+        subtitle: { PT: "Editorial / Print", EN: "Editorial / Print" },
+        client: { PT: "Cliente agência", EN: "Agency client" },
+        year: "2023",
+        cover: "https://images.pexels.com/photos/4467735/pexels-photo-4467735.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        summary: {
+            PT: "Direção de arte e paginação de um anuário corporativo.",
+            EN: "Art direction and layout for a corporate annual report.",
+        },
+    },
+    {
+        id: "graphic-05",
+        category: "graphic",
+        title: { PT: "Identidade Local", EN: "Local Identity" },
+        subtitle: { PT: "Identidade / Logo", EN: "Identity / Logo" },
+        client: { PT: "Projeto cliente", EN: "Client project" },
+        year: "2023",
+        cover: "https://images.pexels.com/photos/8829247/pexels-photo-8829247.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        summary: {
+            PT: "Identidade visual para uma marca de moda independente.",
+            EN: "Visual identity for an independent fashion brand.",
+        },
+    },
+
+    // ===== Fotografia =====
+    {
+        id: "photo-01",
+        category: "photo",
         title: { PT: "Atlântico Norte", EN: "North Atlantic" },
-        category: { PT: "Fotografia desportiva", EN: "Sports photography" },
+        subtitle: { PT: "Fotografia / Surf", EN: "Photography / Surf" },
         client: { PT: "Freelance — Ericeira", EN: "Freelance — Ericeira" },
         year: "2023",
-        cover: "https://images.pexels.com/photos/5578703/pexels-photo-5578703.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1200",
+        cover: "https://images.pexels.com/photos/5578703/pexels-photo-5578703.jpeg?auto=compress&cs=tinysrgb&w=1200",
         summary: {
-            PT: "Série fotográfica em torno do surf na Ericeira — pranchas, hora dourada e a textura do oceano como linguagem.",
-            EN: "Photographic series around surfing in Ericeira — boards, golden hour and the texture of the ocean as language.",
+            PT: "Série em torno do surf na Ericeira — pranchas, hora dourada, oceano.",
+            EN: "Series around surfing in Ericeira — boards, golden hour, ocean.",
         },
-        aspect: "wide",
     },
     {
-        id: "branding",
-        index: "04",
-        title: { PT: "Identidade em Branco", EN: "Identity in Blank" },
-        category: { PT: "Identidade visual", EN: "Brand identity" },
-        client: { PT: "GCI Media Group", EN: "GCI Media Group" },
+        id: "photo-02",
+        category: "photo",
+        title: { PT: "Retrato em Estúdio", EN: "Studio Portrait" },
+        subtitle: { PT: "Sessão privada", EN: "Private session" },
+        client: { PT: "Cliente particular", EN: "Private client" },
         year: "2024",
-        cover: "https://images.pexels.com/photos/5706015/pexels-photo-5706015.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1200",
+        cover: "https://images.pexels.com/photos/2613260/pexels-photo-2613260.jpeg?auto=compress&cs=tinysrgb&w=1200",
         summary: {
-            PT: "Sistema de identidade minimal — papelaria, packaging e direção fotográfica para um estúdio independente.",
-            EN: "Minimal identity system — stationery, packaging and photographic direction for an independent studio.",
+            PT: "Sessão em estúdio com luz controlada e direção de pose.",
+            EN: "Studio session with controlled light and pose direction.",
         },
-        aspect: "tall",
     },
     {
-        id: "web-design",
-        index: "05",
+        id: "photo-03",
+        category: "photo",
+        title: { PT: "Linha de Costa", EN: "Coastline" },
+        subtitle: { PT: "Paisagem", EN: "Landscape" },
+        client: { PT: "Projeto pessoal", EN: "Personal project" },
+        year: "2023",
+        cover: "https://images.pexels.com/photos/1032650/pexels-photo-1032650.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        summary: {
+            PT: "Ensaio sobre o litoral oeste — luz, vento e textura.",
+            EN: "Essay on the west coast — light, wind and texture.",
+        },
+    },
+    {
+        id: "photo-04",
+        category: "photo",
+        title: { PT: "Prova de Velocidade", EN: "Speed Trial" },
+        subtitle: { PT: "Evento desportivo", EN: "Sports event" },
+        client: { PT: "Cliente desportivo", EN: "Sports client" },
+        year: "2024",
+        cover: "https://images.pexels.com/photos/2519780/pexels-photo-2519780.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        summary: {
+            PT: "Cobertura fotográfica de uma prova local de automobilismo.",
+            EN: "Photographic coverage of a local motorsport race.",
+        },
+    },
+    {
+        id: "photo-05",
+        category: "photo",
+        title: { PT: "Sessão de Marca", EN: "Brand Shoot" },
+        subtitle: { PT: "Lifestyle / Marca", EN: "Lifestyle / Brand" },
+        client: { PT: "Cliente agência", EN: "Agency client" },
+        year: "2024",
+        cover: "https://images.pexels.com/photos/3768005/pexels-photo-3768005.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        summary: {
+            PT: "Direção e fotografia para uma campanha lifestyle.",
+            EN: "Direction and photography for a lifestyle campaign.",
+        },
+    },
+
+    // ===== Web =====
+    {
+        id: "web-01",
+        category: "web",
         title: { PT: "Forma & Função", EN: "Form & Function" },
-        category: { PT: "Web Design", EN: "Web Design" },
+        subtitle: { PT: "Website / Editorial", EN: "Website / Editorial" },
         client: { PT: "Projeto cliente", EN: "Client project" },
         year: "2024",
-        cover: "https://images.pexels.com/photos/9874642/pexels-photo-9874642.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1200",
+        cover: "https://images.pexels.com/photos/196645/pexels-photo-196645.jpeg?auto=compress&cs=tinysrgb&w=1200",
         summary: {
-            PT: "Website editorial com tipografia expressiva e composição assimétrica — um experiment em ritmo e cor.",
-            EN: "Editorial website with expressive typography and asymmetric composition — an experiment in rhythm and colour.",
+            PT: "Website editorial com tipografia expressiva e composição assimétrica.",
+            EN: "Editorial website with expressive typography and asymmetric composition.",
         },
-        aspect: "wide",
+    },
+    {
+        id: "web-02",
+        category: "web",
+        title: { PT: "Landing de Lançamento", EN: "Launch Landing" },
+        subtitle: { PT: "Landing page", EN: "Landing page" },
+        client: { PT: "Cliente agência", EN: "Agency client" },
+        year: "2024",
+        cover: "https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        summary: {
+            PT: "Landing page para o lançamento de um produto digital.",
+            EN: "Landing page for the launch of a digital product.",
+        },
+    },
+    {
+        id: "web-03",
+        category: "web",
+        title: { PT: "Sistema de UI", EN: "UI System" },
+        subtitle: { PT: "UI / Design System", EN: "UI / Design System" },
+        client: { PT: "Cliente agência", EN: "Agency client" },
+        year: "2025",
+        cover: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        summary: {
+            PT: "Componentes, tokens e guidelines para um produto SaaS.",
+            EN: "Components, tokens and guidelines for a SaaS product.",
+        },
+    },
+    {
+        id: "web-04",
+        category: "web",
+        title: { PT: "Portfolio Estúdio", EN: "Studio Portfolio" },
+        subtitle: { PT: "Website / Estúdio", EN: "Website / Studio" },
+        client: { PT: "Estúdio criativo", EN: "Creative studio" },
+        year: "2023",
+        cover: "https://images.pexels.com/photos/265125/pexels-photo-265125.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        summary: {
+            PT: "Website portfolio para um estúdio criativo independente.",
+            EN: "Portfolio website for an independent creative studio.",
+        },
+    },
+    {
+        id: "web-05",
+        category: "web",
+        title: { PT: "E-commerce Boutique", EN: "Boutique E-commerce" },
+        subtitle: { PT: "E-commerce", EN: "E-commerce" },
+        client: { PT: "Cliente boutique", EN: "Boutique client" },
+        year: "2024",
+        cover: "https://images.pexels.com/photos/3965545/pexels-photo-3965545.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        summary: {
+            PT: "Loja online minimal para uma marca de moda boutique.",
+            EN: "Minimal online store for a boutique fashion brand.",
+        },
+    },
+
+    // ===== Motion =====
+    {
+        id: "motion-01",
+        category: "motion",
+        title: { PT: "Logo em Movimento", EN: "Logo in Motion" },
+        subtitle: { PT: "Motion / Branding", EN: "Motion / Branding" },
+        client: { PT: "Cliente agência", EN: "Agency client" },
+        year: "2024",
+        cover: "https://images.pexels.com/photos/2510428/pexels-photo-2510428.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        summary: {
+            PT: "Animação de um logótipo para apresentação institucional.",
+            EN: "Logo animation for institutional presentation.",
+        },
+    },
+    {
+        id: "motion-02",
+        category: "motion",
+        title: { PT: "Bumper de Lançamento", EN: "Launch Bumper" },
+        subtitle: { PT: "Motion / Vídeo", EN: "Motion / Video" },
+        client: { PT: "Cliente agência", EN: "Agency client" },
+        year: "2024",
+        cover: "https://images.pexels.com/photos/799443/pexels-photo-799443.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        summary: {
+            PT: "Bumper de abertura para um produto digital.",
+            EN: "Opening bumper for a digital product.",
+        },
+    },
+    {
+        id: "motion-03",
+        category: "motion",
+        title: { PT: "Social Cut", EN: "Social Cut" },
+        subtitle: { PT: "Edição social", EN: "Social editing" },
+        client: { PT: "Cliente agência", EN: "Agency client" },
+        year: "2025",
+        cover: "https://images.pexels.com/photos/2510428/pexels-photo-2510428.jpeg?auto=compress&cs=tinysrgb&w=1200&dpr=1",
+        summary: {
+            PT: "Conjunto de edições verticais para campanhas em Reels e TikTok.",
+            EN: "Vertical edit set for Reels and TikTok campaigns.",
+        },
+    },
+    {
+        id: "motion-04",
+        category: "motion",
+        title: { PT: "Reel Showreel", EN: "Reel Showreel" },
+        subtitle: { PT: "Reel anual", EN: "Annual reel" },
+        client: { PT: "Projeto pessoal", EN: "Personal project" },
+        year: "2024",
+        cover: "https://images.pexels.com/photos/2179483/pexels-photo-2179483.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        summary: {
+            PT: "Showreel anual reunindo os melhores momentos em motion e vídeo.",
+            EN: "Annual showreel gathering the best moments in motion and video.",
+        },
+    },
+    {
+        id: "motion-05",
+        category: "motion",
+        title: { PT: "Teaser de Evento", EN: "Event Teaser" },
+        subtitle: { PT: "Motion / Evento", EN: "Motion / Event" },
+        client: "PALCO 22",
+        year: "2023",
+        cover: "https://images.pexels.com/photos/2531546/pexels-photo-2531546.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        summary: {
+            PT: "Teaser audiovisual para a divulgação de um evento.",
+            EN: "Audiovisual teaser for the promotion of an event.",
+        },
     },
 ];
 
@@ -194,7 +471,7 @@ export const TOOLS = [
 
 export const EXPERIENCE = [
     {
-        period: "2025 — " + "Hoje",
+        period: "2025 — Hoje",
         period_en: "2025 — Present",
         role: { PT: "Multimedia & AR Specialist", EN: "Multimedia & AR Specialist" },
         company: "YDigital Media",
@@ -214,7 +491,7 @@ export const EXPERIENCE = [
         },
     },
     {
-        period: "2022 — " + "Hoje",
+        period: "2022 — Hoje",
         period_en: "2022 — Present",
         role: { PT: "Fotógrafo Freelancer", EN: "Freelance Photographer" },
         company: { PT: "Independente", EN: "Independent" },
