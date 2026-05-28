@@ -1,56 +1,52 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
-import { HOME } from "@/constants/testIds";
+import { LanguageProvider } from "@/context/LanguageContext";
+import Navigation from "@/components/Navigation";
+import Hero from "@/components/Hero";
+import SelectedWorks from "@/components/SelectedWorks";
+import Marquee from "@/components/Marquee";
+import AboutServices from "@/components/AboutServices";
+import Experience from "@/components/Experience";
+import Contact from "@/components/Contact";
+import CustomCursor from "@/components/CustomCursor";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+const Portfolio = () => {
+    useEffect(() => {
+        // Smooth-scroll for anchor jumps (CSS native is enough; ensure html element)
+        document.documentElement.style.scrollBehavior = "smooth";
+        return () => {
+            document.documentElement.style.scrollBehavior = "";
+        };
+    }, []);
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          data-testid={HOME.emergentLink}
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App grain" data-testid="portfolio-root">
+            <CustomCursor />
+            <Navigation />
+            <main>
+                <Hero />
+                <Marquee />
+                <SelectedWorks />
+                <AboutServices />
+                <Experience />
+                <Contact />
+            </main>
+        </div>
+    );
 };
 
 function App() {
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
+    return (
+        <LanguageProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Portfolio />} />
+                    <Route path="*" element={<Portfolio />} />
+                </Routes>
+            </BrowserRouter>
+        </LanguageProvider>
+    );
 }
 
 export default App;
