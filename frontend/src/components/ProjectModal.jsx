@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { X, ArrowLeft, ArrowRight, ArrowUpRight, Box } from "lucide-react";
 import { useLang, t } from "../context/LanguageContext";
+import { launchAR, hasARAssets } from "../lib/ar";
 
 const localize = (v, lang) => (typeof v === "string" ? v : t(v, lang));
 
@@ -13,6 +14,7 @@ const COPY = {
     gallery: { PT: "Galeria", EN: "Gallery" },
     tools: { PT: "Ferramentas", EN: "Tools" },
     link: { PT: "Ver projeto", EN: "View project" },
+    view_ar: { PT: "Ver em AR / 3D", EN: "View in AR / 3D" },
     prev: { PT: "Anterior", EN: "Previous" },
     next: { PT: "Seguinte", EN: "Next" },
     close: { PT: "Fechar", EN: "Close" },
@@ -133,11 +135,34 @@ const ProjectModal = ({ project, index, total, onClose, onPrev, onNext }) => {
 
                             {/* Cover */}
                             <div className="px-5 md:px-8">
-                                <div className="project-image-wrap aspect-[16/9]">
+                                <div className="relative project-image-wrap aspect-[16/9]">
                                     <img
                                         src={project.cover}
                                         alt={t(project.title, lang)}
                                     />
+                                    {hasARAssets(project) && (
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                launchAR({
+                                                    glb: project.model_glb,
+                                                    usdz: project.model_usdz,
+                                                    title: t(
+                                                        project.title,
+                                                        lang,
+                                                    ),
+                                                    image: project.cover,
+                                                })
+                                            }
+                                            data-testid="modal-ar-button"
+                                            className="absolute bottom-3 right-3 md:bottom-4 md:right-4 inline-flex items-center gap-2 bg-ink text-bone hover:bg-terracotta transition-colors duration-500 px-4 py-2.5 shadow-lg"
+                                        >
+                                            <Box size={14} />
+                                            <span className="text-xs tracking-[0.18em] uppercase">
+                                                {t(COPY.view_ar, lang)}
+                                            </span>
+                                        </button>
+                                    )}
                                 </div>
                             </div>
 

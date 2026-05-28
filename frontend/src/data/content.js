@@ -59,6 +59,11 @@ export const PROJECTS = [
         client: "YDigital Media",
         year: "2025",
         cover: "https://static.prod-images.emergentagent.com/jobs/70fc049d-38ef-4031-895b-4ae45bbdcd28/images/53e00eff551a39f250734a1fab64ab0846a35961911b6c40105b82e8c0b39173.png",
+        // 3D / AR files — replace with your own when ready.
+        // .glb → Android Scene Viewer + desktop web viewer
+        // .usdz → iOS AR Quick Look
+        model_glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
+        model_usdz: "https://developer.apple.com/augmented-reality/quick-look/models/retrotv/tv_retro.usdz",
         summary: {
             PT: "Experiência interativa em AR para uma campanha de produto.",
             EN: "Interactive AR experience for a product campaign.",
@@ -467,6 +472,7 @@ export const TOOLS = [
     "Premiere Pro",
     "Figma",
     "HTML / CSS",
+    "Fotografia / Vídeo",
 ];
 
 export const EXPERIENCE = [
