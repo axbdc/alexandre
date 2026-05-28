@@ -115,6 +115,7 @@ const Navigation = () => {
                                 <a
                                     href={`#${l.id}`}
                                     onClick={go(l.id)}
+                                    data-testid={`nav-mobile-link-${l.id}`}
                                     className="font-display text-2xl text-ink"
                                 >
                                     {t(NAV[l.id], lang)}

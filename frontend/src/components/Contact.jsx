@@ -33,8 +33,10 @@ const Contact = () => {
         setLoading(true);
         const accessKey = process.env.REACT_APP_WEB3FORMS_KEY;
         let delivered = false;
-        try {
-            if (accessKey) {
+
+        // 1) Try Web3Forms (client-side delivery). Failure is non-fatal.
+        if (accessKey) {
+            try {
                 const fd = new FormData();
                 fd.append("access_key", accessKey);
                 fd.append("name", form.name);
@@ -51,30 +53,37 @@ const Contact = () => {
                 });
                 const data = await resp.json();
                 delivered = !!data.success;
-            }
-            // Always store a backup copy on our backend
-            try {
-                await axios.post(`${API}/contact`, form, { timeout: 12000 });
             } catch (_) {
-                /* backup save is best-effort */
+                delivered = false;
             }
-
-            if (delivered) {
-                toast.success(t(CONTACT.fields.success, lang));
-                setForm(initialForm);
-            } else {
-                toast.warning(
-                    lang === "PT"
-                        ? "Recebida e guardada. O envio por email ficou pendente."
-                        : "Received and stored. Email delivery is pending.",
-                );
-                setForm(initialForm);
-            }
-        } catch (err) {
-            toast.error(t(CONTACT.fields.error, lang));
-        } finally {
-            setLoading(false);
         }
+
+        // 2) Always persist a backup copy on our backend.
+        let stored = false;
+        try {
+            await axios.post(`${API}/contact`, form, { timeout: 12000 });
+            stored = true;
+        } catch (_) {
+            stored = false;
+        }
+
+        setLoading(false);
+
+        if (!delivered && !stored) {
+            toast.error(t(CONTACT.fields.error, lang));
+            return;
+        }
+
+        if (delivered) {
+            toast.success(t(CONTACT.fields.success, lang));
+        } else {
+            toast.warning(
+                lang === "PT"
+                    ? "Mensagem recebida e guardada. O envio por email ficou pendente."
+                    : "Message received and stored. Email delivery is pending.",
+            );
+        }
+        setForm(initialForm);
     };
 
     return (
