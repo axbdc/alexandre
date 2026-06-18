@@ -209,11 +209,10 @@ export const PROJECTS = [
         subtitle: { PT: "Website / Carpintaria", EN: "Website / Carpentry" },
         client: "Madeira Rústica",
         year: "2025",
-        url: "https://madeirarustica.pt",
-        // Screenshot automático do site live (WordPress mShots). Funciona já, sem
-        // hospedares nada. Para produção fica mais fiável trocares por um screenshot
-        // teu alojado no Cloudinary. 📷 TROCAR (recomendado)
-        cover: "https://s0.wp.com/mshots/v1/https%3A%2F%2Fmadeirarustica.pt?w=1280",
+        url: "https://www.madeirarustica.pt",
+        // Screenshot automático do site live (WordPress mShots). Para produção podes
+        // trocar por um screenshot teu alojado (mais nítido/fiável). 📷 opcional
+        cover: "https://s0.wp.com/mshots/v1/https%3A%2F%2Fwww.madeirarustica.pt?w=1280",
         // cover_mobile: "URL_screenshot_mobile",  // descomenta para o telemóvel sobreposto
         summary: {
             PT: "Site bilingue com painel de admin, galeria de projetos e backend Supabase.",
@@ -252,10 +251,8 @@ export const PROJECTS = [
         subtitle: { PT: "Website / Restauração", EN: "Website / Restaurant" },
         client: "Talay Thai House",
         year: "2024",
-        // ⚠️ CONFIRMA o URL live (palpite a partir do repo axbdc/talaythai-house).
-        // Quando confirmares, troca o cover por: https://s0.wp.com/mshots/v1/<URL-encoded>?w=1280
         url: "https://talaythai-house.vercel.app",
-        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=Talay+Thai", // 📷 TROCAR (screenshot do site)
+        cover: "https://s0.wp.com/mshots/v1/https%3A%2F%2Ftalaythai-house.vercel.app?w=1280", // screenshot live
         summary: {
             PT: "Website para restaurante tailandês na Ericeira, com menu lateral e ligações a delivery.",
             EN: "Website for a Thai restaurant in Ericeira, with a side-drawer menu and delivery links.",
@@ -269,23 +266,40 @@ export const PROJECTS = [
     {
         id: "web-04",
         category: "web",
-        title: { PT: "GoWeb Hub", EN: "GoWeb Hub" },
-        subtitle: { PT: "Plataforma / Web App", EN: "Platform / Web App" },
-        client: { PT: "Projeto próprio", EN: "Own project" },
+        title: { PT: "BerryLab Açaí", EN: "BerryLab Açaí" },
+        subtitle: { PT: "Website / Restauração", EN: "Website / Restaurant" },
+        client: "BerryLab Açaí",
         year: "2025",
-        // ⚠️ PÕE AQUI o URL do GoWeb Hub para aparecer o botão "Ver site ao vivo":
-        // url: "https://o-teu-goweb.vercel.app",
-        // cover: "https://s0.wp.com/mshots/v1/<URL-encoded>?w=1280",
-        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=GoWeb+Hub", // 📷 TROCAR (screenshot do site)
+        url: "https://berry-lab-acai-site.vercel.app",
+        cover: "https://s0.wp.com/mshots/v1/https%3A%2F%2Fberry-lab-acai-site.vercel.app?w=1280", // screenshot live
         summary: {
-            PT: "Plataforma para gerir múltiplos sites de clientes, com painel de CRM de vendas.",
-            EN: "Platform to manage multiple client sites, with a sales CRM panel.",
+            PT: "Website para a BerryLab Açaí, marca de bowls e smoothies de açaí.",
+            EN: "Website for BerryLab Açaí, an açaí bowls and smoothies brand.",
         },
         details: {
-            PT: "Plataforma pessoal em React + Vite + TypeScript + Tailwind para gerir vários sites de clientes num só sítio. Inclui painel de CRM de vendas, routing client-side, login por sessão e os sites de portfólio reais embebidos.\n\nDeploy em Vercel.",
-            EN: "A personal platform in React + Vite + TypeScript + Tailwind to manage several client sites in one place. Includes a sales CRM panel, client-side routing, session-based login and the real portfolio sites embedded.\n\nDeployed to Vercel.",
+            PT: "Website para a BerryLab Açaí — “O Açaí Autêntico” — marca portuguesa de bowls, smoothies e toppings frescos, com lojas em Ericeira, Santa Cruz e Torres Vedras. Inclui menu, localizações e presença de marca.\n\nReact + Tailwind, deploy em Vercel.",
+            EN: "Website for BerryLab Açaí — “The Authentic Açaí” — a Portuguese brand of fresh bowls, smoothies and toppings, with shops in Ericeira, Santa Cruz and Torres Vedras. Includes menu, locations and brand presence.\n\nReact + Tailwind, deployed to Vercel.",
         },
-        tools: ["React", "Vite", "TypeScript", "Tailwind"],
+        tools: ["React", "Tailwind", "Vite"],
+    },
+    {
+        id: "web-05",
+        category: "web",
+        title: { PT: "GIG — Ericeira", EN: "GIG — Ericeira" },
+        subtitle: { PT: "Website / Restauração", EN: "Website / Restaurant" },
+        client: "GIG",
+        year: "2025",
+        url: "https://gi-g-website.vercel.app",
+        cover: "https://s0.wp.com/mshots/v1/https%3A%2F%2Fgi-g-website.vercel.app?w=1280", // screenshot live
+        summary: {
+            PT: "Landing page para o GIG (Ericeira) com sistema de reservas por email.",
+            EN: "Landing page for GIG (Ericeira) with an email reservation system.",
+        },
+        details: {
+            PT: "Landing page para o GIG, na Ericeira, com um sistema de reservas que envia o pedido por email. Foco em conversão: uma página única e direta, com a reserva sempre à mão.\n\nReact, deploy em Vercel.",
+            EN: "Landing page for GIG, in Ericeira, with a reservation system that sends requests by email. Conversion-focused: a single, direct page with booking always within reach.\n\nReact, deployed to Vercel.",
+        },
+        tools: ["React", "Tailwind", "Vite"],
     },
 
     // ===== Motion & Rich Media =====
