@@ -209,7 +209,12 @@ export const PROJECTS = [
         subtitle: { PT: "Website / Carpintaria", EN: "Website / Carpentry" },
         client: "Madeira Rústica",
         year: "2025",
-        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=Madeira+Rustica", // 📷 TROCAR (screenshot do site)
+        url: "https://madeirarustica.pt",
+        // Screenshot automático do site live (WordPress mShots). Funciona já, sem
+        // hospedares nada. Para produção fica mais fiável trocares por um screenshot
+        // teu alojado no Cloudinary. 📷 TROCAR (recomendado)
+        cover: "https://s0.wp.com/mshots/v1/https%3A%2F%2Fmadeirarustica.pt?w=1280",
+        // cover_mobile: "URL_screenshot_mobile",  // descomenta para o telemóvel sobreposto
         summary: {
             PT: "Site bilingue com painel de admin, galeria de projetos e backend Supabase.",
             EN: "Bilingual site with admin panel, project gallery and a Supabase backend.",
@@ -227,7 +232,9 @@ export const PROJECTS = [
         subtitle: { PT: "Website / Restauração", EN: "Website / Restaurant" },
         client: "Bruti",
         year: "2025",
-        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=Bruti", // 📷 TROCAR (screenshot do site)
+        url: "https://bruti.vercel.app",
+        cover: "https://s0.wp.com/mshots/v1/https%3A%2F%2Fbruti.vercel.app?w=1280", // screenshot live · 📷 TROCAR por hospedado p/ produção
+        // cover_mobile: "URL_screenshot_mobile",
         summary: {
             PT: "Site para pizzaria em React + Vite, com modal de reservas e SEO.",
             EN: "Pizzeria site in React + Vite, with a reservation modal and SEO.",
@@ -245,6 +252,9 @@ export const PROJECTS = [
         subtitle: { PT: "Website / Restauração", EN: "Website / Restaurant" },
         client: "Talay Thai House",
         year: "2024",
+        // ⚠️ CONFIRMA o URL live (palpite a partir do repo axbdc/talaythai-house).
+        // Quando confirmares, troca o cover por: https://s0.wp.com/mshots/v1/<URL-encoded>?w=1280
+        url: "https://talaythai-house.vercel.app",
         cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=Talay+Thai", // 📷 TROCAR (screenshot do site)
         summary: {
             PT: "Website para restaurante tailandês na Ericeira, com menu lateral e ligações a delivery.",
@@ -263,6 +273,9 @@ export const PROJECTS = [
         subtitle: { PT: "Plataforma / Web App", EN: "Platform / Web App" },
         client: { PT: "Projeto próprio", EN: "Own project" },
         year: "2025",
+        // ⚠️ PÕE AQUI o URL do GoWeb Hub para aparecer o botão "Ver site ao vivo":
+        // url: "https://o-teu-goweb.vercel.app",
+        // cover: "https://s0.wp.com/mshots/v1/<URL-encoded>?w=1280",
         cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=GoWeb+Hub", // 📷 TROCAR (screenshot do site)
         summary: {
             PT: "Plataforma para gerir múltiplos sites de clientes, com painel de CRM de vendas.",
