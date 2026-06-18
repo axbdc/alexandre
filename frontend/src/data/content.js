@@ -212,7 +212,7 @@ export const PROJECTS = [
         url: "https://www.madeirarustica.pt",
         // Screenshot automático do site live (WordPress mShots). Para produção podes
         // trocar por um screenshot teu alojado (mais nítido/fiável). 📷 opcional
-        cover: "https://s0.wp.com/mshots/v1/https%3A%2F%2Fwww.madeirarustica.pt?w=1280",
+        cover: "https://image.thum.io/get/width/1280/https://www.madeirarustica.pt",
         // cover_mobile: "URL_screenshot_mobile",  // descomenta para o telemóvel sobreposto
         summary: {
             PT: "Site bilingue com painel de admin, galeria de projetos e backend Supabase.",
@@ -232,7 +232,7 @@ export const PROJECTS = [
         client: "Bruti",
         year: "2025",
         url: "https://bruti.vercel.app",
-        cover: "https://s0.wp.com/mshots/v1/https%3A%2F%2Fbruti.vercel.app?w=1280", // screenshot live · 📷 TROCAR por hospedado p/ produção
+        cover: "https://image.thum.io/get/width/1280/https://bruti.vercel.app", // screenshot live · 📷 TROCAR por hospedado p/ produção
         // cover_mobile: "URL_screenshot_mobile",
         summary: {
             PT: "Site para pizzaria em React + Vite, com modal de reservas e SEO.",
@@ -252,7 +252,7 @@ export const PROJECTS = [
         client: "Talay Thai House",
         year: "2024",
         url: "https://talaythai-house.vercel.app",
-        cover: "https://s0.wp.com/mshots/v1/https%3A%2F%2Ftalaythai-house.vercel.app?w=1280", // screenshot live
+        cover: "https://image.thum.io/get/width/1280/https://talaythai-house.vercel.app", // screenshot live
         summary: {
             PT: "Website para restaurante tailandês na Ericeira, com menu lateral e ligações a delivery.",
             EN: "Website for a Thai restaurant in Ericeira, with a side-drawer menu and delivery links.",
@@ -271,7 +271,7 @@ export const PROJECTS = [
         client: "BerryLab Açaí",
         year: "2025",
         url: "https://berry-lab-acai-site.vercel.app",
-        cover: "https://s0.wp.com/mshots/v1/https%3A%2F%2Fberry-lab-acai-site.vercel.app?w=1280", // screenshot live
+        cover: "https://image.thum.io/get/width/1280/https://berry-lab-acai-site.vercel.app", // screenshot live
         summary: {
             PT: "Website para a BerryLab Açaí, marca de bowls e smoothies de açaí.",
             EN: "Website for BerryLab Açaí, an açaí bowls and smoothies brand.",
@@ -290,7 +290,7 @@ export const PROJECTS = [
         client: "GIG",
         year: "2025",
         url: "https://gi-g-website.vercel.app",
-        cover: "https://s0.wp.com/mshots/v1/https%3A%2F%2Fgi-g-website.vercel.app?w=1280", // screenshot live
+        cover: "https://image.thum.io/get/width/1280/https://gi-g-website.vercel.app", // screenshot live
         summary: {
             PT: "Landing page para o GIG (Ericeira) com sistema de reservas por email.",
             EN: "Landing page for GIG (Ericeira) with an email reservation system.",
