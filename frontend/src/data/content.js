@@ -1,6 +1,7 @@
 // Content for Alexandre Cosme's portfolio. PT and EN versions.
-// 5 categories × 5 placeholder projects = 25 cards.
-// Replace cover images and copy with the real work later.
+// PROJETOS REAIS. As imagens estão como placeholders (placehold.co) que mostram
+// o nome de cada projeto — troca cada `cover` (e `gallery`) pelo URL real
+// (Cloudinary, etc.) quando tiveres as imagens prontas. Procura por "📷 TROCAR".
 
 export const NAV = {
     work: { PT: "Trabalhos", EN: "Work" },
@@ -24,8 +25,8 @@ export const HERO = {
     cta: { PT: "Ver trabalhos", EN: "See work" },
     cta_secondary: { PT: "Falar comigo", EN: "Get in touch" },
     floating_note: {
-        PT: "Selecionados — 2022 / 2025",
-        EN: "Selected — 2022 / 2025",
+        PT: "Selecionados — 2022 / 2026",
+        EN: "Selected — 2022 / 2026",
     },
 };
 
@@ -44,148 +45,114 @@ export const CATEGORIES = [
     { id: "graphic", label: { PT: "Design Gráfico", EN: "Graphic Design" } },
     { id: "photo", label: { PT: "Fotografia", EN: "Photography" } },
     { id: "web", label: { PT: "Web", EN: "Web" } },
-    { id: "motion", label: { PT: "Motion", EN: "Motion" } },
+    { id: "motion", label: { PT: "Motion & Rich Media", EN: "Motion & Rich Media" } },
 ];
 
-// -------- Projects --------
-// 5 placeholders per category. Replace cover/title/summary with real work.
+// -------- Projects (REAIS) --------
 export const PROJECTS = [
     // ===== AR & 3D =====
     {
         id: "ar3d-01",
         category: "ar3d",
-        title: { PT: "Camada Aumentada", EN: "Augmented Layer" },
+        title: { PT: "Ativações AR de Marca", EN: "Branded AR Activations" },
         subtitle: { PT: "AR / Campanha", EN: "AR / Campaign" },
-        client: "YDigital Media",
+        client: "YDIGITAL MEDIA",
         year: "2025",
-        cover: "https://static.prod-images.emergentagent.com/jobs/70fc049d-38ef-4031-895b-4ae45bbdcd28/images/53e00eff551a39f250734a1fab64ab0846a35961911b6c40105b82e8c0b39173.png",
-        // 3D / AR files — replace with your own when ready.
-        // .glb → Android Scene Viewer + desktop web viewer
-        // .usdz → iOS AR Quick Look
-        model_glb: "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
-        model_usdz: "https://developer.apple.com/augmented-reality/quick-look/models/retrotv/tv_retro.usdz",
+        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=Ativacoes+AR", // 📷 TROCAR
+        // model_glb: "URL_DO_TEU_.glb",   // descomenta quando tiveres o modelo alojado
+        // model_usdz: "URL_DO_TEU_.usdz",
         summary: {
-            PT: "Experiência interativa em AR para uma campanha de produto.",
-            EN: "Interactive AR experience for a product campaign.",
+            PT: "Experiências de Realidade Aumentada para campanhas, ativações e eventos de marca.",
+            EN: "Augmented Reality experiences for brand campaigns, activations and events.",
         },
+        details: {
+            PT: "Como Multimedia & AR Specialist na YDIGITAL MEDIA, concebo e produzo experiências de Realidade Aumentada para clientes da agência — de filtros sociais a ativações em evento. O fluxo passa por conceito, modelação e otimização de assets 3D em Blender, e implementação para web e redes sociais.\n\nCada peça vive entre a câmara, o gesto e a marca: o desafio é manter a identidade visual intacta dentro das limitações de performance do AR em telemóvel.",
+            EN: "As Multimedia & AR Specialist at YDIGITAL MEDIA, I design and produce Augmented Reality experiences for agency clients — from social filters to live event activations. The flow goes from concept to 3D asset modelling and optimisation in Blender, and implementation for web and social.\n\nEach piece lives between the camera, the gesture and the brand: the challenge is keeping the visual identity intact within the performance limits of mobile AR.",
+        },
+        tools: ["Blender", "Spark AR", "Photoshop", "After Effects"],
     },
     {
         id: "ar3d-02",
         category: "ar3d",
-        title: { PT: "Sistema Concêntrico", EN: "Concentric System" },
-        subtitle: { PT: "3D / Direção de Arte", EN: "3D / Art Direction" },
-        client: { PT: "Estudo pessoal", EN: "Personal study" },
+        title: { PT: "Red Panda Kawaii", EN: "Kawaii Red Panda" },
+        subtitle: { PT: "3D / Estudo pessoal", EN: "3D / Personal study" },
+        client: { PT: "Projeto pessoal", EN: "Personal project" },
         year: "2024",
-        cover: "https://images.pexels.com/photos/13907756/pexels-photo-13907756.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=Red+Panda+3D", // 📷 TROCAR
         summary: {
-            PT: "Estudo em modelação 3D e composição de luz.",
-            EN: "Study in 3D modelling and light composition.",
+            PT: "Estudo de modelação e texture painting em Blender, com estética cartoon.",
+            EN: "Modelling and texture painting study in Blender, with a cartoon aesthetic.",
         },
-    },
-    {
-        id: "ar3d-03",
-        category: "ar3d",
-        title: { PT: "Filtro de Marca", EN: "Brand Filter" },
-        subtitle: { PT: "AR / Social", EN: "AR / Social" },
-        client: { PT: "Cliente — confidencial", EN: "Client — confidential" },
-        year: "2025",
-        cover: "https://images.pexels.com/photos/9874642/pexels-photo-9874642.jpeg?auto=compress&cs=tinysrgb&w=1200",
-        summary: {
-            PT: "Filtro AR para Instagram e TikTok, integrado com a identidade visual.",
-            EN: "AR filter for Instagram and TikTok, integrated with the brand identity.",
+        details: {
+            PT: "Personagem 3D estilizada modelada em Blender como exercício de texture painting. Trabalhei com uma abordagem multi-material por zonas para controlar cor e detalhe, e construí o contorno cartoon com o modificador Solidify combinado com Freestyle.\n\nUm projeto pessoal para afinar workflow de personagem — da silhueta ao look final, sem sair do Blender.",
+            EN: "A stylised 3D character modelled in Blender as a texture-painting exercise. I worked with a zoned multi-material approach to control colour and detail, and built the cartoon outline using the Solidify modifier combined with Freestyle.\n\nA personal project to refine a character workflow — from silhouette to final look, entirely inside Blender.",
         },
-    },
-    {
-        id: "ar3d-04",
-        category: "ar3d",
-        title: { PT: "Vaso Maquette", EN: "Maquette Vessel" },
-        subtitle: { PT: "3D / Produto", EN: "3D / Product" },
-        client: { PT: "Estudo pessoal", EN: "Personal study" },
-        year: "2024",
-        cover: "https://images.pexels.com/photos/4040601/pexels-photo-4040601.jpeg?auto=compress&cs=tinysrgb&w=1200",
-        summary: {
-            PT: "Render de produto cerâmico, ensaio de materiais e iluminação.",
-            EN: "Ceramic product render, materials and lighting study.",
-        },
-    },
-    {
-        id: "ar3d-05",
-        category: "ar3d",
-        title: { PT: "Stand Imersivo", EN: "Immersive Booth" },
-        subtitle: { PT: "AR / Evento", EN: "AR / Event" },
-        client: "YDigital Media",
-        year: "2025",
-        cover: "https://images.pexels.com/photos/8721318/pexels-photo-8721318.jpeg?auto=compress&cs=tinysrgb&w=1200",
-        summary: {
-            PT: "Ativação AR para um stand de feira — câmara, gesto e marca.",
-            EN: "AR activation for a trade fair booth — camera, gesture and brand.",
-        },
+        tools: ["Blender"],
     },
 
     // ===== Design Gráfico =====
     {
         id: "graphic-01",
         category: "graphic",
-        title: { PT: "Identidade em Branco", EN: "Identity in Blank" },
-        subtitle: { PT: "Identidade", EN: "Identity" },
-        client: "GCI Media Group",
-        year: "2024",
-        cover: "https://images.pexels.com/photos/5706015/pexels-photo-5706015.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        title: { PT: "Natura Rescue", EN: "Natura Rescue" },
+        subtitle: { PT: "Campanha / Key Visual", EN: "Campaign / Key Visual" },
+        client: "Mediology",
+        year: "2025",
+        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=Natura+Rescue", // 📷 TROCAR
         summary: {
-            PT: "Papelaria, packaging e direção fotográfica para um estúdio.",
-            EN: "Stationery, packaging and photographic direction for a studio.",
+            PT: "Recuperação e finalização das artes da campanha Natura Rescue.",
+            EN: "Recovery and final art production for the Natura Rescue campaign.",
+        },
+        details: {
+            PT: "Trabalho de finalização gráfica para a campanha Natura Rescue, incluindo a recuperação técnica de um ficheiro PSD corrompido para repor o material de origem sem perda de qualidade.\n\nComposição, ajuste de artes e preparação dos suportes finais a partir do conceito da campanha.",
+            EN: "Final art production for the Natura Rescue campaign, including the technical recovery of a corrupted PSD file to restore the source material with no loss of quality.\n\nComposition, art adjustment and final media prep from the campaign concept.",
         },
     },
     {
         id: "graphic-02",
         category: "graphic",
-        title: { PT: "Campanha Tipográfica", EN: "Typographic Campaign" },
-        subtitle: { PT: "Editorial / Cartaz", EN: "Editorial / Poster" },
-        client: { PT: "Cliente agência", EN: "Agency client" },
-        year: "2024",
-        cover: "https://images.pexels.com/photos/3243/pen-calendar-to-do-checklist.jpg?auto=compress&cs=tinysrgb&w=1200",
+        title: { PT: "Solverde Group", EN: "Solverde Group" },
+        subtitle: { PT: "Copy / Comunicação", EN: "Copy / Communication" },
+        client: "Solverde Group",
+        year: "2025",
+        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=Solverde+Group", // 📷 TROCAR
         summary: {
-            PT: "Série de cartazes baseada em composição tipográfica monocromática.",
-            EN: "Poster series based on monochromatic typographic composition.",
+            PT: "Linha de comunicação para quatro unidades hoteleiras do grupo Solverde.",
+            EN: "Communication line for four hotel properties of the Solverde group.",
+        },
+        details: {
+            PT: "Desenvolvimento de frases e linha de comunicação para quatro propriedades do grupo: Hotel Solverde Spa & Wellness, Hotel Apartamento Solverde, Hotel Algarve Casino e Hotel Casino Chaves.\n\nCada unidade com tom próprio, mantendo coerência de marca no conjunto.",
+            EN: "Development of taglines and a communication line for four group properties: Hotel Solverde Spa & Wellness, Hotel Apartamento Solverde, Hotel Algarve Casino and Hotel Casino Chaves.\n\nEach property with its own tone, keeping brand coherence across the set.",
         },
     },
     {
         id: "graphic-03",
         category: "graphic",
-        title: { PT: "Packaging Concept", EN: "Packaging Concept" },
-        subtitle: { PT: "Packaging", EN: "Packaging" },
+        title: { PT: "Campanhas GCI", EN: "GCI Campaigns" },
+        subtitle: { PT: "Publicidade / Multi-suporte", EN: "Advertising / Multi-format" },
         client: "GCI Media Group",
         year: "2024",
-        cover: "https://images.pexels.com/photos/3850515/pexels-photo-3850515.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=Campanhas+GCI", // 📷 TROCAR
         summary: {
-            PT: "Sistema de packaging para uma linha de produtos artesanais.",
-            EN: "Packaging system for an artisanal product line.",
+            PT: "Campanhas publicitárias do conceito ao deliverable, durante o estágio na GCI.",
+            EN: "Advertising campaigns from concept to deliverable, during the GCI internship.",
+        },
+        details: {
+            PT: "Desenvolvimento de campanhas publicitárias do conceito ao deliverable final, para suportes online e offline — redes sociais, print e OOH. Conceção de packaging e expositores PLV para retalho e eventos.\n\nTrabalho diário em equipa criativa: briefing, iteração com art directors e apresentação a cliente.",
+            EN: "Development of advertising campaigns from concept to final deliverable, for online and offline media — social, print and OOH. Packaging design and POS displays for retail and events.\n\nDaily work in a creative team: briefing, iteration with art directors and client presentation.",
         },
     },
     {
         id: "graphic-04",
         category: "graphic",
-        title: { PT: "Anuário Editorial", EN: "Annual Editorial" },
-        subtitle: { PT: "Editorial / Print", EN: "Editorial / Print" },
-        client: { PT: "Cliente agência", EN: "Agency client" },
-        year: "2023",
-        cover: "https://images.pexels.com/photos/4467735/pexels-photo-4467735.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        title: { PT: "Aronick", EN: "Aronick" },
+        subtitle: { PT: "Identidade / Desporto", EN: "Identity / Sportswear" },
+        client: "Aronick",
+        year: "2025",
+        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=Aronick", // 📷 TROCAR
         summary: {
-            PT: "Direção de arte e paginação de um anuário corporativo.",
-            EN: "Art direction and layout for a corporate annual report.",
-        },
-    },
-    {
-        id: "graphic-05",
-        category: "graphic",
-        title: { PT: "Identidade Local", EN: "Local Identity" },
-        subtitle: { PT: "Identidade / Logo", EN: "Identity / Logo" },
-        client: { PT: "Projeto cliente", EN: "Client project" },
-        year: "2023",
-        cover: "https://images.pexels.com/photos/8829247/pexels-photo-8829247.jpeg?auto=compress&cs=tinysrgb&w=1200",
-        summary: {
-            PT: "Identidade visual para uma marca de moda independente.",
-            EN: "Visual identity for an independent fashion brand.",
+            PT: "Direção visual para uma marca portuguesa de vestuário desportivo.",
+            EN: "Visual direction for a Portuguese sportswear brand.",
         },
     },
 
@@ -193,66 +160,44 @@ export const PROJECTS = [
     {
         id: "photo-01",
         category: "photo",
-        title: { PT: "Atlântico Norte", EN: "North Atlantic" },
-        subtitle: { PT: "Fotografia / Surf", EN: "Photography / Surf" },
-        client: { PT: "Freelance — Ericeira", EN: "Freelance — Ericeira" },
-        year: "2023",
-        cover: "https://images.pexels.com/photos/5578703/pexels-photo-5578703.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        title: { PT: "Estoril Motorsport", EN: "Estoril Motorsport" },
+        subtitle: { PT: "Fotografia / Automobilismo", EN: "Photography / Motorsport" },
+        client: { PT: "Projeto pessoal", EN: "Personal project" },
+        year: "2024",
+        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=Estoril+Motorsport", // 📷 TROCAR
         summary: {
-            PT: "Série em torno do surf na Ericeira — pranchas, hora dourada, oceano.",
-            EN: "Series around surfing in Ericeira — boards, golden hour, ocean.",
+            PT: "Série fotográfica de automobilismo — Porsche em pista, no Autódromo do Estoril.",
+            EN: "Motorsport photography series — Porsche on track, at Estoril Circuit.",
+        },
+        details: {
+            PT: "Série dedicada a automobilismo, com foco em Porsche em pista no Autódromo do Estoril. Trabalho de panning e timing para captar velocidade, com tratamento de cor que valoriza a luz da hora dourada e a textura do carro.\n\nUma das séries de que tenho mais orgulho — onde a fotografia e a paixão pelo automóvel se cruzam.",
+            EN: "A series dedicated to motorsport, focused on Porsche on track at Estoril Circuit. Panning and timing work to capture speed, with colour grading that brings out golden-hour light and the texture of the car.\n\nOne of the series I'm most proud of — where photography and a passion for cars meet.",
         },
     },
     {
         id: "photo-02",
         category: "photo",
-        title: { PT: "Retrato em Estúdio", EN: "Studio Portrait" },
-        subtitle: { PT: "Sessão privada", EN: "Private session" },
-        client: { PT: "Cliente particular", EN: "Private client" },
-        year: "2024",
-        cover: "https://images.pexels.com/photos/2613260/pexels-photo-2613260.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        title: { PT: "Atlântico — Ericeira", EN: "Atlantic — Ericeira" },
+        subtitle: { PT: "Fotografia / Surf", EN: "Photography / Surf" },
+        client: { PT: "Freelance — Ericeira", EN: "Freelance — Ericeira" },
+        year: "2023",
+        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=Atlantico+Ericeira", // 📷 TROCAR
         summary: {
-            PT: "Sessão em estúdio com luz controlada e direção de pose.",
-            EN: "Studio session with controlled light and pose direction.",
+            PT: "Ensaio fotográfico de surf na Ericeira — pranchas, hora dourada, oceano.",
+            EN: "Surf photography essay in Ericeira — boards, golden hour, ocean.",
         },
     },
     {
         id: "photo-03",
         category: "photo",
-        title: { PT: "Linha de Costa", EN: "Coastline" },
-        subtitle: { PT: "Paisagem", EN: "Landscape" },
-        client: { PT: "Projeto pessoal", EN: "Personal project" },
-        year: "2023",
-        cover: "https://images.pexels.com/photos/1032650/pexels-photo-1032650.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        title: { PT: "Evento Corporate — Tivoli Oriente", EN: "Corporate Event — Tivoli Oriente" },
+        subtitle: { PT: "Fotografia / Evento", EN: "Photography / Event" },
+        client: { PT: "Cliente imobiliário (Dubai)", EN: "Real estate client (Dubai)" },
+        year: "2025",
+        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=Tivoli+Oriente", // 📷 TROCAR
         summary: {
-            PT: "Ensaio sobre o litoral oeste — luz, vento e textura.",
-            EN: "Essay on the west coast — light, wind and texture.",
-        },
-    },
-    {
-        id: "photo-04",
-        category: "photo",
-        title: { PT: "Prova de Velocidade", EN: "Speed Trial" },
-        subtitle: { PT: "Evento desportivo", EN: "Sports event" },
-        client: { PT: "Cliente desportivo", EN: "Sports client" },
-        year: "2024",
-        cover: "https://images.pexels.com/photos/2519780/pexels-photo-2519780.jpeg?auto=compress&cs=tinysrgb&w=1200",
-        summary: {
-            PT: "Cobertura fotográfica de uma prova local de automobilismo.",
-            EN: "Photographic coverage of a local motorsport race.",
-        },
-    },
-    {
-        id: "photo-05",
-        category: "photo",
-        title: { PT: "Sessão de Marca", EN: "Brand Shoot" },
-        subtitle: { PT: "Lifestyle / Marca", EN: "Lifestyle / Brand" },
-        client: { PT: "Cliente agência", EN: "Agency client" },
-        year: "2024",
-        cover: "https://images.pexels.com/photos/3768005/pexels-photo-3768005.jpeg?auto=compress&cs=tinysrgb&w=1200",
-        summary: {
-            PT: "Direção e fotografia para uma campanha lifestyle.",
-            EN: "Direction and photography for a lifestyle campaign.",
+            PT: "Cobertura de um evento corporate de imobiliário de luxo no Tivoli Oriente, Parque das Nações.",
+            EN: "Coverage of a luxury real estate corporate event at Tivoli Oriente, Parque das Nações.",
         },
     },
 
@@ -260,146 +205,145 @@ export const PROJECTS = [
     {
         id: "web-01",
         category: "web",
-        title: { PT: "Forma & Função", EN: "Form & Function" },
-        subtitle: { PT: "Website / Editorial", EN: "Website / Editorial" },
-        client: { PT: "Projeto cliente", EN: "Client project" },
-        year: "2024",
-        cover: "https://images.pexels.com/photos/196645/pexels-photo-196645.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        title: { PT: "Madeira Rústica", EN: "Madeira Rústica" },
+        subtitle: { PT: "Website / Carpintaria", EN: "Website / Carpentry" },
+        client: "Madeira Rústica",
+        year: "2025",
+        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=Madeira+Rustica", // 📷 TROCAR (screenshot do site)
         summary: {
-            PT: "Website editorial com tipografia expressiva e composição assimétrica.",
-            EN: "Editorial website with expressive typography and asymmetric composition.",
+            PT: "Site bilingue com painel de admin, galeria de projetos e backend Supabase.",
+            EN: "Bilingual site with admin panel, project gallery and a Supabase backend.",
         },
+        details: {
+            PT: "Website completo para a Madeira Rústica (madeirarustica.pt), em HTML/CSS/JS com backend em Supabase e painel de administração. Sistema de i18n PT/EN, galeria de projetos com modal e slideshow, formulário de contacto via Web3Forms e imagens alojadas em Cloudinary.\n\nDo lado técnico: SEO completo (Google Search Console, dados estruturados JSON-LD, sitemap e robots.txt) com indexação confirmada, e domínio próprio ligado via Amen.pt ao Vercel.",
+            EN: "A full website for Madeira Rústica (madeirarustica.pt), in HTML/CSS/JS with a Supabase backend and admin panel. PT/EN i18n system, project gallery with modal and slideshow, contact form via Web3Forms and images hosted on Cloudinary.\n\nOn the technical side: full SEO (Google Search Console, JSON-LD structured data, sitemap and robots.txt) with confirmed indexing, and a custom domain connected via Amen.pt to Vercel.",
+        },
+        tools: ["HTML / CSS", "JavaScript", "Supabase", "Cloudinary"],
     },
     {
         id: "web-02",
         category: "web",
-        title: { PT: "Landing de Lançamento", EN: "Launch Landing" },
-        subtitle: { PT: "Landing page", EN: "Landing page" },
-        client: { PT: "Cliente agência", EN: "Agency client" },
-        year: "2024",
-        cover: "https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        title: { PT: "Bruti", EN: "Bruti" },
+        subtitle: { PT: "Website / Restauração", EN: "Website / Restaurant" },
+        client: "Bruti",
+        year: "2025",
+        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=Bruti", // 📷 TROCAR (screenshot do site)
         summary: {
-            PT: "Landing page para o lançamento de um produto digital.",
-            EN: "Landing page for the launch of a digital product.",
+            PT: "Site para pizzaria em React + Vite, com modal de reservas e SEO.",
+            EN: "Pizzeria site in React + Vite, with a reservation modal and SEO.",
         },
+        details: {
+            PT: "Website para a pizzaria Bruti em React + Vite + TypeScript + Tailwind. Inclui auditoria de site, geração de favicon e OG image, modal de reservas com lógica de fallback e melhorias de SEO.\n\nDeploy em Vercel a partir de GitHub.",
+            EN: "Website for the Bruti pizzeria in React + Vite + TypeScript + Tailwind. Includes a site audit, favicon and OG image generation, a reservation modal with fallback logic and SEO improvements.\n\nDeployed to Vercel from GitHub.",
+        },
+        tools: ["React", "Vite", "TypeScript", "Tailwind"],
     },
     {
         id: "web-03",
         category: "web",
-        title: { PT: "Sistema de UI", EN: "UI System" },
-        subtitle: { PT: "UI / Design System", EN: "UI / Design System" },
-        client: { PT: "Cliente agência", EN: "Agency client" },
-        year: "2025",
-        cover: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        title: { PT: "Talay Thai House", EN: "Talay Thai House" },
+        subtitle: { PT: "Website / Restauração", EN: "Website / Restaurant" },
+        client: "Talay Thai House",
+        year: "2024",
+        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=Talay+Thai", // 📷 TROCAR (screenshot do site)
         summary: {
-            PT: "Componentes, tokens e guidelines para um produto SaaS.",
-            EN: "Components, tokens and guidelines for a SaaS product.",
+            PT: "Website para restaurante tailandês na Ericeira, com menu lateral e ligações a delivery.",
+            EN: "Website for a Thai restaurant in Ericeira, with a side-drawer menu and delivery links.",
         },
+        details: {
+            PT: "Website para o Talay Thai House (Ericeira) em React + TypeScript + Vite + Tailwind. Menu em side-drawer deslizante, paleta quente em dourado e terracota, e ligações diretas a Uber Eats e Bolt Food.\n\nDeploy em GitHub e Vercel.",
+            EN: "Website for Talay Thai House (Ericeira) in React + TypeScript + Vite + Tailwind. A sliding side-drawer menu, warm gold and terracotta palette, and direct links to Uber Eats and Bolt Food.\n\nDeployed to GitHub and Vercel.",
+        },
+        tools: ["React", "TypeScript", "Vite", "Tailwind"],
     },
     {
         id: "web-04",
         category: "web",
-        title: { PT: "Portfolio Estúdio", EN: "Studio Portfolio" },
-        subtitle: { PT: "Website / Estúdio", EN: "Website / Studio" },
-        client: { PT: "Estúdio criativo", EN: "Creative studio" },
-        year: "2023",
-        cover: "https://images.pexels.com/photos/265125/pexels-photo-265125.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        title: { PT: "GoWeb Hub", EN: "GoWeb Hub" },
+        subtitle: { PT: "Plataforma / Web App", EN: "Platform / Web App" },
+        client: { PT: "Projeto próprio", EN: "Own project" },
+        year: "2025",
+        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=GoWeb+Hub", // 📷 TROCAR (screenshot do site)
         summary: {
-            PT: "Website portfolio para um estúdio criativo independente.",
-            EN: "Portfolio website for an independent creative studio.",
+            PT: "Plataforma para gerir múltiplos sites de clientes, com painel de CRM de vendas.",
+            EN: "Platform to manage multiple client sites, with a sales CRM panel.",
         },
-    },
-    {
-        id: "web-05",
-        category: "web",
-        title: { PT: "E-commerce Boutique", EN: "Boutique E-commerce" },
-        subtitle: { PT: "E-commerce", EN: "E-commerce" },
-        client: { PT: "Cliente boutique", EN: "Boutique client" },
-        year: "2024",
-        cover: "https://images.pexels.com/photos/3965545/pexels-photo-3965545.jpeg?auto=compress&cs=tinysrgb&w=1200",
-        summary: {
-            PT: "Loja online minimal para uma marca de moda boutique.",
-            EN: "Minimal online store for a boutique fashion brand.",
+        details: {
+            PT: "Plataforma pessoal em React + Vite + TypeScript + Tailwind para gerir vários sites de clientes num só sítio. Inclui painel de CRM de vendas, routing client-side, login por sessão e os sites de portfólio reais embebidos.\n\nDeploy em Vercel.",
+            EN: "A personal platform in React + Vite + TypeScript + Tailwind to manage several client sites in one place. Includes a sales CRM panel, client-side routing, session-based login and the real portfolio sites embedded.\n\nDeployed to Vercel.",
         },
+        tools: ["React", "Vite", "TypeScript", "Tailwind"],
     },
 
-    // ===== Motion =====
+    // ===== Motion & Rich Media =====
     {
         id: "motion-01",
         category: "motion",
-        title: { PT: "Logo em Movimento", EN: "Logo in Motion" },
-        subtitle: { PT: "Motion / Branding", EN: "Motion / Branding" },
-        client: { PT: "Cliente agência", EN: "Agency client" },
-        year: "2024",
-        cover: "https://images.pexels.com/photos/2510428/pexels-photo-2510428.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        title: { PT: "World Cup Predictor 2026", EN: "World Cup Predictor 2026" },
+        subtitle: { PT: "Rich Media / HTML5", EN: "Rich Media / HTML5" },
+        client: "World Sports Betting",
+        year: "2026",
+        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=World+Cup+Predictor", // 📷 TROCAR
         summary: {
-            PT: "Animação de um logótipo para apresentação institucional.",
-            EN: "Logo animation for institutional presentation.",
+            PT: "Banner interativo HTML5 (rich media) para a campanha World Cup Predictor 2026.",
+            EN: "Interactive HTML5 rich-media banner for the World Cup Predictor 2026 campaign.",
         },
+        details: {
+            PT: "Produção de um banner rich media HTML5 (639×1136px) para a campanha World Cup Predictor 2026 da World Sports Betting. Extração de cores de marca a partir dos PSDs e construção do mockup e animação.\n\nPeça pensada para captar atenção em formato vertical, com a identidade da marca a guiar a animação.",
+            EN: "Production of an HTML5 rich-media banner (639×1136px) for World Sports Betting's World Cup Predictor 2026 campaign. Brand colour extraction from the PSDs and build of the mockup and animation.\n\nA piece built to grab attention in vertical format, with the brand identity driving the animation.",
+        },
+        tools: ["HTML5", "After Effects", "Photoshop"],
     },
     {
         id: "motion-02",
         category: "motion",
-        title: { PT: "Bumper de Lançamento", EN: "Launch Bumper" },
-        subtitle: { PT: "Motion / Vídeo", EN: "Motion / Video" },
-        client: { PT: "Cliente agência", EN: "Agency client" },
-        year: "2024",
-        cover: "https://images.pexels.com/photos/799443/pexels-photo-799443.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        title: { PT: "Short-form Imobiliário", EN: "Real Estate Short-form" },
+        subtitle: { PT: "Vídeo / Social", EN: "Video / Social" },
+        client: { PT: "Imobiliário (Lisboa)", EN: "Real estate (Lisbon)" },
+        year: "2025",
+        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=Short-form+Imobiliario", // 📷 TROCAR
         summary: {
-            PT: "Bumper de abertura para um produto digital.",
-            EN: "Opening bumper for a digital product.",
+            PT: "Edições verticais para social — pipeline assistido por IA para clientes de imobiliário.",
+            EN: "Vertical edits for social — an AI-assisted pipeline for real estate clients.",
         },
     },
     {
         id: "motion-03",
         category: "motion",
-        title: { PT: "Social Cut", EN: "Social Cut" },
-        subtitle: { PT: "Edição social", EN: "Social editing" },
-        client: { PT: "Cliente agência", EN: "Agency client" },
+        title: { PT: "Tivoli Oriente — Aftermovie", EN: "Tivoli Oriente — Aftermovie" },
+        subtitle: { PT: "Vídeo / Evento", EN: "Video / Event" },
+        client: { PT: "Cliente imobiliário (Dubai)", EN: "Real estate client (Dubai)" },
         year: "2025",
-        cover: "https://images.pexels.com/photos/2510428/pexels-photo-2510428.jpeg?auto=compress&cs=tinysrgb&w=1200&dpr=1",
+        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=Tivoli+Aftermovie", // 📷 TROCAR
         summary: {
-            PT: "Conjunto de edições verticais para campanhas em Reels e TikTok.",
-            EN: "Vertical edit set for Reels and TikTok campaigns.",
+            PT: "Captação e edição do vídeo de um evento corporate de imobiliário de luxo.",
+            EN: "Filming and editing of a luxury real estate corporate event video.",
         },
     },
     {
         id: "motion-04",
         category: "motion",
-        title: { PT: "Reel Showreel", EN: "Reel Showreel" },
-        subtitle: { PT: "Reel anual", EN: "Annual reel" },
-        client: { PT: "Projeto pessoal", EN: "Personal project" },
-        year: "2024",
-        cover: "https://images.pexels.com/photos/2179483/pexels-photo-2179483.jpeg?auto=compress&cs=tinysrgb&w=1200",
-        summary: {
-            PT: "Showreel anual reunindo os melhores momentos em motion e vídeo.",
-            EN: "Annual showreel gathering the best moments in motion and video.",
-        },
-    },
-    {
-        id: "motion-05",
-        category: "motion",
-        title: { PT: "Teaser de Evento", EN: "Event Teaser" },
-        subtitle: { PT: "Motion / Evento", EN: "Motion / Event" },
+        title: { PT: "PALCO 22 — Audiovisual", EN: "PALCO 22 — Audiovisual" },
+        subtitle: { PT: "Vídeo / Eventos ao vivo", EN: "Video / Live events" },
         client: "PALCO 22",
         year: "2023",
-        cover: "https://images.pexels.com/photos/2531546/pexels-photo-2531546.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=PALCO+22", // 📷 TROCAR
         summary: {
-            PT: "Teaser audiovisual para a divulgação de um evento.",
-            EN: "Audiovisual teaser for the promotion of an event.",
+            PT: "Operação de câmara e montagem audiovisual em eventos ao vivo.",
+            EN: "Camera operation and audiovisual setup at live events.",
         },
     },
 ];
 
 export const ABOUT = {
     heading: {
-        PT: "Designer multidisciplinar, 22 anos, baseado entre a Ericeira e Lisboa.",
-        EN: "Multidisciplinary designer, 22, based between Ericeira and Lisbon.",
+        PT: "Designer multidisciplinar, 23 anos, baseado entre a Ericeira e Lisboa.",
+        EN: "Multidisciplinary designer, 23, based between Ericeira and Lisbon.",
     },
     body: [
         {
-            PT: "Formado em Engenharia Multimédia pelo ISTEC. Trabalho atualmente como Multimedia & AR Specialist na YDigital Media, depois de uma passagem pelo GCI Media Group enquanto designer gráfico.",
-            EN: "Multimedia Engineering graduate from ISTEC. Currently Multimedia & AR Specialist at YDigital Media after an internship at GCI Media Group as graphic designer.",
+            PT: "Formado em Engenharia Multimédia pelo ISTEC. Trabalho atualmente como Multimedia & AR Specialist na YDIGITAL MEDIA, depois de uma passagem pelo GCI Media Group enquanto designer gráfico.",
+            EN: "Multimedia Engineering graduate from ISTEC. Currently Multimedia & AR Specialist at YDIGITAL MEDIA after a spell at GCI Media Group as a graphic designer.",
         },
         {
             PT: "Movo-me confortavelmente entre o estático e o interativo, entre uma campanha impressa e uma experiência em AR. Encaro cada brief como um problema de composição — e o resto resolve-se com gosto e disciplina.",
@@ -439,18 +383,18 @@ export const SERVICES = [
     },
     {
         no: "04",
-        title: { PT: "Web Design", EN: "Web Design" },
+        title: { PT: "Web Design & Desenvolvimento", EN: "Web Design & Development" },
         body: {
-            PT: "Sites editoriais e portfólios com tipografia cuidada, HTML/CSS limpo e Figma como base.",
-            EN: "Editorial websites and portfolios with careful typography, clean HTML/CSS and Figma as base.",
+            PT: "Sites em React/TypeScript ou HTML/CSS, com SEO, deploy em Vercel e tipografia cuidada.",
+            EN: "Sites in React/TypeScript or HTML/CSS, with SEO, Vercel deploy and careful typography.",
         },
     },
     {
         no: "05",
         title: { PT: "Fotografia", EN: "Photography" },
         body: {
-            PT: "Eventos desportivos, sessões privadas e direção de imagem para marcas.",
-            EN: "Sporting events, private sessions and image direction for brands.",
+            PT: "Eventos desportivos, automobilismo, sessões privadas e direção de imagem para marcas.",
+            EN: "Sporting events, motorsport, private sessions and image direction for brands.",
         },
     },
     {
@@ -466,11 +410,13 @@ export const SERVICES = [
 export const TOOLS = [
     "Photoshop",
     "Illustrator",
+    "InDesign",
     "Lightroom",
     "Blender",
     "After Effects",
     "Premiere Pro",
     "Figma",
+    "React / TypeScript",
     "HTML / CSS",
     "Fotografia / Vídeo",
 ];
@@ -480,7 +426,7 @@ export const EXPERIENCE = [
         period: "2025 — Hoje",
         period_en: "2025 — Present",
         role: { PT: "Multimedia & AR Specialist", EN: "Multimedia & AR Specialist" },
-        company: "YDigital Media",
+        company: "YDIGITAL MEDIA",
         scope: {
             PT: "AR, design gráfico, 3D, web design, produção gráfica.",
             EN: "AR, graphic design, 3D, web design, graphic production.",
@@ -531,23 +477,23 @@ export const EXPERIENCE = [
     {
         period: "2022 — Hoje",
         period_en: "2022 — Present",
-        role: { PT: "Fotógrafo Freelancer", EN: "Freelance Photographer" },
+        role: { PT: "Web & Vídeo Freelancer", EN: "Freelance Web & Video" },
         company: { PT: "Independente", EN: "Independent" },
         scope: {
-            PT: "Eventos desportivos e sessões privadas.",
-            EN: "Sporting events and private sessions.",
+            PT: "Websites para negócios locais, fotografia e conteúdo de vídeo.",
+            EN: "Websites for local businesses, photography and video content.",
         },
         details: {
             PT: [
-                "Cobertura fotográfica de provas e eventos desportivos — surf, automobilismo e amadores.",
-                "Sessões privadas em estúdio e exterior — retrato, casal e família.",
-                "Edição e color grading em Lightroom com entrega final em galeria privada.",
+                "Desenvolvimento e entrega de websites para negócios locais (Ericeira, Lisboa, Mafra), com deploy em Vercel.",
+                "Cobertura fotográfica de provas e eventos desportivos — automobilismo, surf e amadores.",
+                "Captação e edição de vídeo para eventos corporate e conteúdo social.",
                 "Gestão direta com clientes: orçamentação, agenda, contrato e entrega.",
             ],
             EN: [
-                "Photographic coverage of sporting events — surf, motorsport and amateur races.",
-                "Private sessions in studio and outdoors — portrait, couples and family.",
-                "Editing and colour grading in Lightroom with final delivery via private gallery.",
+                "Development and delivery of websites for local businesses (Ericeira, Lisbon, Mafra), deployed to Vercel.",
+                "Photographic coverage of sporting events — motorsport, surf and amateur races.",
+                "Filming and editing of video for corporate events and social content.",
                 "Direct client management: quoting, scheduling, contracts and delivery.",
             ],
         },
@@ -627,71 +573,23 @@ export const SOCIAL = {
     location: "Ribamar, Ericeira",
 };
 
-// ---- Enrich each project with placeholder long details, gallery and tools ----
-// You can override any of these fields directly on a project above.
+// ---- Enrich each project: galeria e tools por omissão ----
+// Já defini `details` e (na maioria) `tools` reais em cima.
+// A galeria começa só com a capa — acrescenta mais imagens reais quando tiveres.
 
 const TOOLS_BY_CATEGORY = {
     ar3d: ["Blender", "Spark AR", "Photoshop", "After Effects"],
     graphic: ["Illustrator", "Photoshop", "InDesign", "Figma"],
-    photo: ["Lightroom", "Photoshop", "Sony Alpha"],
-    web: ["Figma", "HTML / CSS", "React", "Framer"],
-    motion: ["After Effects", "Premiere Pro", "Blender"],
-};
-
-const DEFAULT_DETAILS = {
-    PT: (p) =>
-        `Este projeto explora ${p.subtitle.PT.toLowerCase()} num contexto de ${p.client && typeof p.client === "object" ? p.client.PT : p.client || "cliente"}. O ponto de partida foi um brief claro: encontrar uma linguagem visual que conjugasse ritmo, contraste e elegância — sem nunca cair no óbvio.
-
-A abordagem assentou em três fases — pesquisa, exploração e refinamento. Comecei por mapear referências, materiais e paletas; depois construí uma série de variações para testar direção; por fim, consolidei o sistema final com atenção a cada detalhe tipográfico, fotográfico e de composição.
-
-O resultado é um conjunto de peças coerente, com personalidade própria e pronto para escalar entre suportes — print, digital, AR e vídeo. (Esta descrição é um placeholder — substitui pelo case study real.)`,
-    EN: (p) =>
-        `This project explores ${p.subtitle.EN.toLowerCase()} in the context of ${p.client && typeof p.client === "object" ? p.client.EN : p.client || "client"}. The starting point was a clear brief: find a visual language that combines rhythm, contrast and elegance — without ever falling into the obvious.
-
-The approach was built on three phases — research, exploration and refinement. I first mapped references, materials and palettes; then built a series of variations to test direction; finally, consolidated the final system with attention to every typographic, photographic and compositional detail.
-
-The result is a coherent set of pieces with a personality of their own, ready to scale across media — print, digital, AR and video. (This is placeholder copy — replace with the real case study.)`,
-};
-
-const GALLERY_BY_CATEGORY = {
-    ar3d: [
-        "https://images.pexels.com/photos/4040601/pexels-photo-4040601.jpeg?auto=compress&cs=tinysrgb&w=1600",
-        "https://images.pexels.com/photos/13907756/pexels-photo-13907756.jpeg?auto=compress&cs=tinysrgb&w=1600",
-        "https://images.pexels.com/photos/9874642/pexels-photo-9874642.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    ],
-    graphic: [
-        "https://images.pexels.com/photos/5706015/pexels-photo-5706015.jpeg?auto=compress&cs=tinysrgb&w=1600",
-        "https://images.pexels.com/photos/3850515/pexels-photo-3850515.jpeg?auto=compress&cs=tinysrgb&w=1600",
-        "https://images.pexels.com/photos/4467735/pexels-photo-4467735.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    ],
-    photo: [
-        "https://images.pexels.com/photos/5578703/pexels-photo-5578703.jpeg?auto=compress&cs=tinysrgb&w=1600",
-        "https://images.pexels.com/photos/1032650/pexels-photo-1032650.jpeg?auto=compress&cs=tinysrgb&w=1600",
-        "https://images.pexels.com/photos/2613260/pexels-photo-2613260.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    ],
-    web: [
-        "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=1600",
-        "https://images.pexels.com/photos/265125/pexels-photo-265125.jpeg?auto=compress&cs=tinysrgb&w=1600",
-        "https://images.pexels.com/photos/196645/pexels-photo-196645.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    ],
-    motion: [
-        "https://images.pexels.com/photos/2510428/pexels-photo-2510428.jpeg?auto=compress&cs=tinysrgb&w=1600",
-        "https://images.pexels.com/photos/2179483/pexels-photo-2179483.jpeg?auto=compress&cs=tinysrgb&w=1600",
-        "https://images.pexels.com/photos/2531546/pexels-photo-2531546.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    ],
+    photo: ["Lightroom", "Photoshop", "Sony A7 IV"],
+    web: ["React", "Vite", "TypeScript", "Tailwind"],
+    motion: ["After Effects", "Premiere Pro", "Photoshop"],
 };
 
 PROJECTS.forEach((p) => {
-    if (!p.details) {
-        p.details = {
-            PT: DEFAULT_DETAILS.PT(p),
-            EN: DEFAULT_DETAILS.EN(p),
-        };
-    }
     if (!p.gallery) {
-        const base = GALLERY_BY_CATEGORY[p.category] || [];
-        // Use cover + 3 placeholders. Replace with real images later.
-        p.gallery = [p.cover, ...base];
+        // Só a capa por agora. Acrescenta mais URLs reais aqui quando tiveres:
+        // p.gallery = [p.cover, "URL_2", "URL_3"];
+        p.gallery = [p.cover];
     }
     if (!p.tools) {
         p.tools = TOOLS_BY_CATEGORY[p.category] || [];
