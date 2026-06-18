@@ -14,11 +14,72 @@ const COPY = {
     gallery: { PT: "Galeria", EN: "Gallery" },
     tools: { PT: "Ferramentas", EN: "Tools" },
     link: { PT: "Ver projeto", EN: "View project" },
+    link_live: { PT: "Ver site ao vivo", EN: "Visit live site" },
     view_ar: { PT: "Ver em AR / 3D", EN: "View in AR / 3D" },
     prev: { PT: "Anterior", EN: "Previous" },
     next: { PT: "Seguinte", EN: "Next" },
     close: { PT: "Fechar", EN: "Close" },
     of: { PT: "de", EN: "of" },
+};
+
+// Moldura de browser para projetos web. Envolve um screenshot plano e faz com
+// que pareça um site aberto. A barra de endereço mostra o domínio do `url`.
+// Se passares `srcMobile`, aparece um telemóvel sobreposto (efeito responsivo).
+const BrowserFrame = ({ src, srcMobile, alt, url }) => {
+    let domain = "";
+    try {
+        domain = new URL(url || "").hostname.replace(/^www\./, "");
+    } catch (e) {
+        domain = "";
+    }
+    return (
+        <div className="relative">
+            {/* Janela desktop */}
+            <div className="border border-hairline bg-white shadow-[0_20px_50px_-25px_rgba(28,27,26,0.45)]">
+                {/* Barra do browser */}
+                <div className="flex items-center gap-2 h-9 px-3 border-b border-hairline bg-bone">
+                    <span className="flex items-center gap-1.5 shrink-0">
+                        <span className="h-2.5 w-2.5 rounded-full border border-hairline" />
+                        <span className="h-2.5 w-2.5 rounded-full border border-hairline" />
+                        <span className="h-2.5 w-2.5 rounded-full border border-hairline" />
+                    </span>
+                    {domain ? (
+                        <span className="mx-auto max-w-[62%] truncate rounded-full border border-hairline bg-white px-3 py-0.5 text-[11px] tracking-wide text-mist">
+                            {domain}
+                        </span>
+                    ) : (
+                        <span className="mx-auto" />
+                    )}
+                    <span className="shrink-0 w-[46px]" />
+                </div>
+                {/* Viewport */}
+                <div className="aspect-[16/10] overflow-hidden bg-white">
+                    <img
+                        src={src}
+                        alt={alt}
+                        className="w-full h-full object-cover object-top"
+                        loading="lazy"
+                    />
+                </div>
+            </div>
+
+            {/* Telemóvel sobreposto (opcional) */}
+            {srcMobile ? (
+                <div className="absolute -bottom-4 -right-1 md:-right-4 w-[22%] max-w-[120px]">
+                    <div className="border border-hairline bg-white rounded-[16px] overflow-hidden shadow-[0_18px_40px_-18px_rgba(28,27,26,0.5)]">
+                        <div className="aspect-[9/19] overflow-hidden bg-white">
+                            <img
+                                src={srcMobile}
+                                alt={`${alt} — mobile`}
+                                className="w-full h-full object-cover object-top"
+                                loading="lazy"
+                            />
+                        </div>
+                    </div>
+                </div>
+            ) : null}
+        </div>
+    );
 };
 
 const ProjectModal = ({ project, index, total, onClose, onPrev, onNext }) => {
@@ -39,6 +100,8 @@ const ProjectModal = ({ project, index, total, onClose, onPrev, onNext }) => {
             document.body.style.overflow = prevOverflow;
         };
     }, [project, onClose, onPrev, onNext]);
+
+    const isWeb = project?.category === "web";
 
     return (
         <AnimatePresence>
@@ -134,36 +197,51 @@ const ProjectModal = ({ project, index, total, onClose, onPrev, onNext }) => {
                             </div>
 
                             {/* Cover */}
-                            <div className="px-5 md:px-8">
-                                <div className="relative project-image-wrap aspect-[16/9]">
-                                    <img
+                            <div
+                                className={
+                                    isWeb && project.cover_mobile
+                                        ? "px-5 md:px-8 pb-6"
+                                        : "px-5 md:px-8"
+                                }
+                            >
+                                {isWeb ? (
+                                    <BrowserFrame
                                         src={project.cover}
+                                        srcMobile={project.cover_mobile}
                                         alt={t(project.title, lang)}
+                                        url={project.url}
                                     />
-                                    {hasARAssets(project) && (
-                                        <button
-                                            type="button"
-                                            onClick={() =>
-                                                launchAR({
-                                                    glb: project.model_glb,
-                                                    usdz: project.model_usdz,
-                                                    title: t(
-                                                        project.title,
-                                                        lang,
-                                                    ),
-                                                    image: project.cover,
-                                                })
-                                            }
-                                            data-testid="modal-ar-button"
-                                            className="absolute bottom-3 right-3 md:bottom-4 md:right-4 inline-flex items-center gap-2 bg-ink text-bone hover:bg-terracotta transition-colors duration-500 px-4 py-2.5 shadow-lg"
-                                        >
-                                            <Box size={14} />
-                                            <span className="text-xs tracking-[0.18em] uppercase">
-                                                {t(COPY.view_ar, lang)}
-                                            </span>
-                                        </button>
-                                    )}
-                                </div>
+                                ) : (
+                                    <div className="relative project-image-wrap aspect-[16/9]">
+                                        <img
+                                            src={project.cover}
+                                            alt={t(project.title, lang)}
+                                        />
+                                        {hasARAssets(project) && (
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    launchAR({
+                                                        glb: project.model_glb,
+                                                        usdz: project.model_usdz,
+                                                        title: t(
+                                                            project.title,
+                                                            lang,
+                                                        ),
+                                                        image: project.cover,
+                                                    })
+                                                }
+                                                data-testid="modal-ar-button"
+                                                className="absolute bottom-3 right-3 md:bottom-4 md:right-4 inline-flex items-center gap-2 bg-ink text-bone hover:bg-terracotta transition-colors duration-500 px-4 py-2.5 shadow-lg"
+                                            >
+                                                <Box size={14} />
+                                                <span className="text-xs tracking-[0.18em] uppercase">
+                                                    {t(COPY.view_ar, lang)}
+                                                </span>
+                                            </button>
+                                        )}
+                                    </div>
+                                )}
                             </div>
 
                             {/* Body */}
@@ -211,7 +289,9 @@ const ProjectModal = ({ project, index, total, onClose, onPrev, onNext }) => {
                                             className="group inline-flex items-center gap-2 text-ink text-sm"
                                         >
                                             <span className="link-underline">
-                                                {t(COPY.link, lang)}
+                                                {isWeb
+                                                    ? t(COPY.link_live, lang)
+                                                    : t(COPY.link, lang)}
                                             </span>
                                             <ArrowUpRight
                                                 size={14}
