@@ -211,25 +211,28 @@ const PlayerFrame = ({ src, alt, url }) => {
 //   }
 // Nao precisas de width/height: o RM aparece sempre no mesmo telemovel.
 
-// Telemovel de tamanho fixo — mesma medida para todos os RMs.
+// Telemovel = mockup PNG do utilizador (frontend/public/phone-frame.png).
+// Tamanho fixo, igual para todos os RMs. O conteudo (children) e' posicionado
+// na zona exata do ecra detetada no mockup.
 const PhoneMock = ({ children }) => (
-    <div className="relative mx-auto w-[240px]">
-        <div className="rounded-[2.6rem] border border-hairline bg-white p-2.5 shadow-[0_30px_70px_-30px_rgba(28,27,26,0.55)]">
-            {/* auscultador */}
-            <div className="flex justify-center pt-1 pb-2">
-                <span className="h-1.5 w-14 rounded-full bg-[#e7e3da]" />
-            </div>
-            {/* ecra */}
-            <div
-                className="relative overflow-hidden rounded-[1.4rem] bg-black"
-                style={{ aspectRatio: "9 / 19" }}
-            >
-                {children}
-            </div>
-            {/* botao home */}
-            <div className="flex justify-center pt-2.5 pb-1">
-                <span className="h-7 w-7 rounded-full border border-hairline" />
-            </div>
+    <div className="relative mx-auto w-[230px]">
+        <img
+            src="/phone-frame.png"
+            alt=""
+            draggable={false}
+            className="block w-full h-auto select-none pointer-events-none"
+        />
+        <div
+            className="absolute overflow-hidden bg-black"
+            style={{
+                top: "1.2%",
+                left: "2.9%",
+                right: "4.6%",
+                bottom: "1.5%",
+                borderRadius: "1.1rem",
+            }}
+        >
+            {children}
         </div>
     </div>
 );
