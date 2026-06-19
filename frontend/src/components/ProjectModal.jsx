@@ -195,20 +195,46 @@ const PlayerFrame = ({ src, alt, url }) => {
     );
 };
 
-// RICH MEDIA — protótipo clicável tipo Marvel. Corre uma sequência de ecrãs
-// (PNGs exportados do PSD). Tocar avança; com `hotspots` definidos, só as zonas
+// RICH MEDIA — protótipo clicável tipo Marvel, dentro de um telemóvel de
+// tamanho FIXO (igual para todos os RMs). Corre uma sequência de ecrãs (PNGs
+// exportados do PSD). Tocar avança; com `hotspots` definidos, só as zonas
 // clicáveis avançam (e podem saltar para um ecrã específico).
 //
 // Formato dos dados (no content.js), dentro de um projeto de motion:
 //   richmedia: {
-//     width: 320, height: 568,            // dimensão real do RM
+//     fit: "contain",                    // "contain" (default, barras pretas) ou "cover"
 //     screens: [
-//       { src: "/rm/wsb/1.png" },                                   // tap -> seguinte
-//       { src: "/rm/wsb/2.png", hotspots: [{ x:10, y:72, w:80, h:12, to:2 }] },
-//       { src: "/rm/wsb/3.png" },                                   // x/y/w/h em %, to = indice (comeca em 0)
+//       { src: "/rm/natura/1.png" },                                  // tap -> seguinte
+//       { src: "/rm/natura/2.png", hotspots: [{ x:10, y:72, w:80, h:12, to:2 }] },
+//       { src: "/rm/natura/3.png" },                                  // x/y/w/h em %, to = indice (comeca em 0)
 //     ],
 //   }
-const RichMediaPlayer = ({ screens = [], width = 320, height = 568, lang }) => {
+// Nao precisas de width/height: o RM aparece sempre no mesmo telemovel.
+
+// Telemovel de tamanho fixo — mesma medida para todos os RMs.
+const PhoneMock = ({ children }) => (
+    <div className="relative mx-auto w-[240px]">
+        <div className="rounded-[2.6rem] border border-hairline bg-white p-2.5 shadow-[0_30px_70px_-30px_rgba(28,27,26,0.55)]">
+            {/* auscultador */}
+            <div className="flex justify-center pt-1 pb-2">
+                <span className="h-1.5 w-14 rounded-full bg-[#e7e3da]" />
+            </div>
+            {/* ecra */}
+            <div
+                className="relative overflow-hidden rounded-[1.4rem] bg-black"
+                style={{ aspectRatio: "9 / 19" }}
+            >
+                {children}
+            </div>
+            {/* botao home */}
+            <div className="flex justify-center pt-2.5 pb-1">
+                <span className="h-7 w-7 rounded-full border border-hairline" />
+            </div>
+        </div>
+    </div>
+);
+
+const RichMediaPlayer = ({ screens = [], lang, fit = "contain" }) => {
     const [i, setI] = React.useState(0);
     const [showHint, setShowHint] = React.useState(true);
 
@@ -233,22 +259,15 @@ const RichMediaPlayer = ({ screens = [], width = 320, height = 568, lang }) => {
 
     return (
         <div className="flex flex-col items-center">
-            <div
-                className="relative select-none overflow-hidden border border-hairline bg-ink shadow-[0_24px_60px_-25px_rgba(28,27,26,0.6)]"
-                style={{
-                    width: "100%",
-                    maxWidth: `${width}px`,
-                    aspectRatio: `${width} / ${height}`,
-                }}
-            >
+            <PhoneMock>
                 <img
                     src={screen.src}
                     alt={`${i + 1}`}
                     onClick={onScreenClick}
                     draggable={false}
-                    className={`w-full h-full object-cover ${
-                        hasHotspots ? "" : "cursor-pointer"
-                    }`}
+                    className={`w-full h-full ${
+                        fit === "cover" ? "object-cover" : "object-contain"
+                    } ${hasHotspots ? "" : "cursor-pointer"}`}
                 />
 
                 {/* Zonas clicaveis (hotspots) */}
@@ -278,7 +297,7 @@ const RichMediaPlayer = ({ screens = [], width = 320, height = 568, lang }) => {
                         </span>
                     </div>
                 ) : null}
-            </div>
+            </PhoneMock>
 
             {/* Controlos */}
             <div className="mt-3 flex items-center gap-4 text-[11px] tracking-wide text-mist">
@@ -390,8 +409,7 @@ const ProjectModal = ({ project, index, total, onClose, onPrev, onNext }) => {
                 return (
                     <RichMediaPlayer
                         screens={project.richmedia.screens}
-                        width={project.richmedia.width}
-                        height={project.richmedia.height}
+                        fit={project.richmedia.fit}
                         lang={lang}
                     />
                 );
