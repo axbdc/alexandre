@@ -1,6 +1,13 @@
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ArrowLeft, ArrowRight, ArrowUpRight, Box } from "lucide-react";
+import {
+    X,
+    ArrowLeft,
+    ArrowRight,
+    ArrowUpRight,
+    Box,
+    Play,
+} from "lucide-react";
 import { useLang, t } from "../context/LanguageContext";
 import { launchAR, hasARAssets } from "../lib/ar";
 
@@ -15,6 +22,9 @@ const COPY = {
     tools: { PT: "Ferramentas", EN: "Tools" },
     link: { PT: "Ver projeto", EN: "View project" },
     link_live: { PT: "Ver site ao vivo", EN: "Visit live site" },
+    link_video: { PT: "Ver vídeo", EN: "Watch video" },
+    rm_hint: { PT: "Toca para interagir", EN: "Tap to interact" },
+    rm_restart: { PT: "Recomeçar", EN: "Restart" },
     view_ar: { PT: "Ver em AR / 3D", EN: "View in AR / 3D" },
     prev: { PT: "Anterior", EN: "Previous" },
     next: { PT: "Seguinte", EN: "Next" },
@@ -22,9 +32,14 @@ const COPY = {
     of: { PT: "de", EN: "of" },
 };
 
-// Moldura de browser para projetos web. Envolve um screenshot plano e faz com
-// que pareça um site aberto. A barra de endereço mostra o domínio do `url`.
-// Se passares `srcMobile`, aparece um telemóvel sobreposto (efeito responsivo).
+// =====================================================================
+//  MOLDURAS POR CATEGORIA
+//  Cada meio mostrado no seu contexto nativo. Só aparecem no modal (o
+//  detalhe); a grelha mantém-se limpa e uniforme.
+// =====================================================================
+
+// WEB — janela de browser. A barra mostra o domínio do `url`.
+// Se passares `srcMobile`, aparece um telemóvel sobreposto (responsivo).
 const BrowserFrame = ({ src, srcMobile, alt, url }) => {
     let domain = "";
     try {
@@ -34,9 +49,7 @@ const BrowserFrame = ({ src, srcMobile, alt, url }) => {
     }
     return (
         <div className="relative">
-            {/* Janela desktop */}
             <div className="border border-hairline bg-white shadow-[0_20px_50px_-25px_rgba(28,27,26,0.45)]">
-                {/* Barra do browser */}
                 <div className="flex items-center gap-2 h-9 px-3 border-b border-hairline bg-bone">
                     <span className="flex items-center gap-1.5 shrink-0">
                         <span className="h-2.5 w-2.5 rounded-full border border-hairline" />
@@ -52,7 +65,6 @@ const BrowserFrame = ({ src, srcMobile, alt, url }) => {
                     )}
                     <span className="shrink-0 w-[46px]" />
                 </div>
-                {/* Viewport */}
                 <div className="aspect-[16/10] overflow-hidden bg-white">
                     <img
                         src={src}
@@ -62,8 +74,6 @@ const BrowserFrame = ({ src, srcMobile, alt, url }) => {
                     />
                 </div>
             </div>
-
-            {/* Telemóvel sobreposto (opcional) */}
             {srcMobile ? (
                 <div className="absolute -bottom-4 -right-1 md:-right-4 w-[22%] max-w-[120px]">
                     <div className="border border-hairline bg-white rounded-[16px] overflow-hidden shadow-[0_18px_40px_-18px_rgba(28,27,26,0.5)]">
@@ -78,6 +88,215 @@ const BrowserFrame = ({ src, srcMobile, alt, url }) => {
                     </div>
                 </div>
             ) : null}
+        </div>
+    );
+};
+
+// AR & 3D — render sobre "estúdio" neutro, com sombra de contacto.
+// object-contain para nunca cortar o render. overlay = botão AR (opcional).
+const StageFrame = ({ src, alt, label, overlay }) => (
+    <div className="relative border border-hairline overflow-hidden bg-gradient-to-b from-[#f4f2ee] to-[#e7e3da]">
+        <div className="aspect-[16/9] flex items-center justify-center p-6 md:p-10">
+            <img
+                src={src}
+                alt={alt}
+                className="max-h-full max-w-full object-contain drop-shadow-[0_28px_36px_rgba(28,27,26,0.28)]"
+                loading="lazy"
+            />
+        </div>
+        {label ? (
+            <span className="absolute top-3 left-3 overline text-mist">
+                {label}
+            </span>
+        ) : null}
+        {overlay}
+    </div>
+);
+
+// DESIGN GRÁFICO — a arte como folha impressa sobre superfície neutra.
+// Respeita o rácio da imagem (object-contain), com sombra de folha.
+const PrintFrame = ({ src, alt }) => (
+    <div className="border border-hairline bg-[#e7e3da] p-6 md:p-12 flex items-center justify-center">
+        <img
+            src={src}
+            alt={alt}
+            className="max-w-full max-h-[58vh] object-contain bg-white shadow-[0_30px_60px_-25px_rgba(28,27,26,0.55)]"
+            loading="lazy"
+        />
+    </div>
+);
+
+// FOTOGRAFIA — moldura de galeria: passe-partout fino + legenda.
+const PhotoFrame = ({ src, alt, caption }) => (
+    <figure>
+        <div className="bg-white border border-hairline p-3 md:p-4 shadow-[0_22px_50px_-30px_rgba(28,27,26,0.5)]">
+            <div className="overflow-hidden">
+                <img
+                    src={src}
+                    alt={alt}
+                    className="w-full object-cover"
+                    loading="lazy"
+                />
+            </div>
+        </div>
+        {caption ? (
+            <figcaption className="mt-3 overline text-mist">
+                {caption}
+            </figcaption>
+        ) : null}
+    </figure>
+);
+
+// MOTION & RICH MEDIA — chrome de leitor de vídeo. Se houver `url`, o play
+// abre o vídeo; caso contrário fica decorativo (sinaliza "isto é vídeo").
+const PlayerFrame = ({ src, alt, url }) => {
+    const PlayButton = (
+        <span className="h-14 w-14 md:h-16 md:w-16 rounded-full bg-bone/90 backdrop-blur-sm flex items-center justify-center shadow-lg transition-transform duration-500 group-hover:scale-105">
+            <Play
+                size={22}
+                className="text-ink translate-x-[1px]"
+                fill="currentColor"
+            />
+        </span>
+    );
+    return (
+        <div className="relative border border-hairline bg-ink overflow-hidden group">
+            <div className="aspect-[16/9] overflow-hidden">
+                <img
+                    src={src}
+                    alt={alt}
+                    className="w-full h-full object-cover opacity-90"
+                    loading="lazy"
+                />
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center">
+                {url ? (
+                    <a
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={alt}
+                    >
+                        {PlayButton}
+                    </a>
+                ) : (
+                    PlayButton
+                )}
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 h-10 px-3 flex items-center gap-3 bg-gradient-to-t from-ink/85 to-transparent">
+                <span className="text-[11px] tracking-wide text-bone/80">
+                    00:00
+                </span>
+                <span className="flex-1 h-[3px] bg-bone/25 relative">
+                    <span className="absolute left-0 top-0 h-full w-1/4 bg-bone/80" />
+                </span>
+            </div>
+        </div>
+    );
+};
+
+// RICH MEDIA — protótipo clicável tipo Marvel. Corre uma sequência de ecrãs
+// (PNGs exportados do PSD). Tocar avança; com `hotspots` definidos, só as zonas
+// clicáveis avançam (e podem saltar para um ecrã específico).
+//
+// Formato dos dados (no content.js), dentro de um projeto de motion:
+//   richmedia: {
+//     width: 320, height: 568,            // dimensão real do RM
+//     screens: [
+//       { src: "/rm/wsb/1.png" },                                   // tap -> seguinte
+//       { src: "/rm/wsb/2.png", hotspots: [{ x:10, y:72, w:80, h:12, to:2 }] },
+//       { src: "/rm/wsb/3.png" },                                   // x/y/w/h em %, to = indice (comeca em 0)
+//     ],
+//   }
+const RichMediaPlayer = ({ screens = [], width = 320, height = 568, lang }) => {
+    const [i, setI] = React.useState(0);
+    const [showHint, setShowHint] = React.useState(true);
+
+    if (!screens.length) return null;
+
+    const screen = screens[i] || {};
+    const hasHotspots =
+        Array.isArray(screen.hotspots) && screen.hotspots.length > 0;
+
+    const go = (to) => {
+        setShowHint(false);
+        setI((prev) => {
+            const n = typeof to === "number" ? to : prev + 1;
+            return Math.max(0, Math.min(screens.length - 1, n));
+        });
+    };
+
+    const onScreenClick = () => {
+        if (hasHotspots) return; // com hotspots, so as zonas avancam
+        if (i < screens.length - 1) go(i + 1);
+    };
+
+    return (
+        <div className="flex flex-col items-center">
+            <div
+                className="relative select-none overflow-hidden border border-hairline bg-ink shadow-[0_24px_60px_-25px_rgba(28,27,26,0.6)]"
+                style={{
+                    width: "100%",
+                    maxWidth: `${width}px`,
+                    aspectRatio: `${width} / ${height}`,
+                }}
+            >
+                <img
+                    src={screen.src}
+                    alt={`${i + 1}`}
+                    onClick={onScreenClick}
+                    draggable={false}
+                    className={`w-full h-full object-cover ${
+                        hasHotspots ? "" : "cursor-pointer"
+                    }`}
+                />
+
+                {/* Zonas clicaveis (hotspots) */}
+                {hasHotspots
+                    ? screen.hotspots.map((h, idx) => (
+                          <button
+                              key={idx}
+                              type="button"
+                              onClick={() => go(h.to)}
+                              aria-label={`-> ${h.to + 1}`}
+                              className="absolute hover:bg-bone/10 transition-colors"
+                              style={{
+                                  left: `${h.x}%`,
+                                  top: `${h.y}%`,
+                                  width: `${h.w}%`,
+                                  height: `${h.h}%`,
+                              }}
+                          />
+                      ))
+                    : null}
+
+                {/* Dica inicial */}
+                {showHint && i === 0 ? (
+                    <div className="pointer-events-none absolute inset-x-0 bottom-3 flex justify-center">
+                        <span className="rounded-full bg-bone/90 px-3 py-1 text-[11px] tracking-wide text-ink animate-pulse">
+                            {t(COPY.rm_hint, lang)}
+                        </span>
+                    </div>
+                ) : null}
+            </div>
+
+            {/* Controlos */}
+            <div className="mt-3 flex items-center gap-4 text-[11px] tracking-wide text-mist">
+                <span>
+                    {String(i + 1).padStart(2, "0")} /{" "}
+                    {String(screens.length).padStart(2, "0")}
+                </span>
+                <button
+                    type="button"
+                    onClick={() => {
+                        setI(0);
+                        setShowHint(true);
+                    }}
+                    className="link-underline text-ink"
+                >
+                    {t(COPY.rm_restart, lang)}
+                </button>
+            </div>
         </div>
     );
 };
@@ -101,7 +320,103 @@ const ProjectModal = ({ project, index, total, onClose, onPrev, onNext }) => {
         };
     }, [project, onClose, onPrev, onNext]);
 
-    const isWeb = project?.category === "web";
+    if (!project) return null;
+
+    const cat = project.category;
+    const isWeb = cat === "web";
+    const isMotion = cat === "motion";
+
+    const renderCover = () => {
+        const title = t(project.title, lang);
+
+        if (isWeb) {
+            return (
+                <BrowserFrame
+                    src={project.cover}
+                    srcMobile={project.cover_mobile}
+                    alt={title}
+                    url={project.url}
+                />
+            );
+        }
+
+        if (cat === "ar3d") {
+            const arOverlay = hasARAssets(project) ? (
+                <button
+                    type="button"
+                    onClick={() =>
+                        launchAR({
+                            glb: project.model_glb,
+                            usdz: project.model_usdz,
+                            title,
+                            image: project.cover,
+                        })
+                    }
+                    data-testid="modal-ar-button"
+                    className="absolute bottom-3 right-3 md:bottom-4 md:right-4 inline-flex items-center gap-2 bg-ink text-bone hover:bg-terracotta transition-colors duration-500 px-4 py-2.5 shadow-lg"
+                >
+                    <Box size={14} />
+                    <span className="text-xs tracking-[0.18em] uppercase">
+                        {t(COPY.view_ar, lang)}
+                    </span>
+                </button>
+            ) : null;
+            return (
+                <StageFrame
+                    src={project.cover}
+                    alt={title}
+                    label={t(project.subtitle, lang)}
+                    overlay={arOverlay}
+                />
+            );
+        }
+
+        if (cat === "graphic") {
+            return <PrintFrame src={project.cover} alt={title} />;
+        }
+
+        if (cat === "photo") {
+            return (
+                <PhotoFrame
+                    src={project.cover}
+                    alt={title}
+                    caption={`${title} · ${project.year}`}
+                />
+            );
+        }
+
+        if (isMotion) {
+            if (project.richmedia && project.richmedia.screens?.length) {
+                return (
+                    <RichMediaPlayer
+                        screens={project.richmedia.screens}
+                        width={project.richmedia.width}
+                        height={project.richmedia.height}
+                        lang={lang}
+                    />
+                );
+            }
+            return (
+                <PlayerFrame
+                    src={project.cover}
+                    alt={title}
+                    url={project.url}
+                />
+            );
+        }
+
+        return (
+            <div className="relative project-image-wrap aspect-[16/9]">
+                <img src={project.cover} alt={title} />
+            </div>
+        );
+    };
+
+    const linkLabel = isWeb
+        ? t(COPY.link_live, lang)
+        : isMotion && !project.richmedia
+          ? t(COPY.link_video, lang)
+          : t(COPY.link, lang);
 
     return (
         <AnimatePresence>
@@ -196,52 +511,9 @@ const ProjectModal = ({ project, index, total, onClose, onPrev, onNext }) => {
                                 </div>
                             </div>
 
-                            {/* Cover */}
-                            <div
-                                className={
-                                    isWeb && project.cover_mobile
-                                        ? "px-5 md:px-8 pb-6"
-                                        : "px-5 md:px-8"
-                                }
-                            >
-                                {isWeb ? (
-                                    <BrowserFrame
-                                        src={project.cover}
-                                        srcMobile={project.cover_mobile}
-                                        alt={t(project.title, lang)}
-                                        url={project.url}
-                                    />
-                                ) : (
-                                    <div className="relative project-image-wrap aspect-[16/9]">
-                                        <img
-                                            src={project.cover}
-                                            alt={t(project.title, lang)}
-                                        />
-                                        {hasARAssets(project) && (
-                                            <button
-                                                type="button"
-                                                onClick={() =>
-                                                    launchAR({
-                                                        glb: project.model_glb,
-                                                        usdz: project.model_usdz,
-                                                        title: t(
-                                                            project.title,
-                                                            lang,
-                                                        ),
-                                                        image: project.cover,
-                                                    })
-                                                }
-                                                data-testid="modal-ar-button"
-                                                className="absolute bottom-3 right-3 md:bottom-4 md:right-4 inline-flex items-center gap-2 bg-ink text-bone hover:bg-terracotta transition-colors duration-500 px-4 py-2.5 shadow-lg"
-                                            >
-                                                <Box size={14} />
-                                                <span className="text-xs tracking-[0.18em] uppercase">
-                                                    {t(COPY.view_ar, lang)}
-                                                </span>
-                                            </button>
-                                        )}
-                                    </div>
-                                )}
+                            {/* Cover — moldura por categoria */}
+                            <div className="px-5 md:px-8 pb-2">
+                                {renderCover()}
                             </div>
 
                             {/* Body */}
@@ -289,9 +561,7 @@ const ProjectModal = ({ project, index, total, onClose, onPrev, onNext }) => {
                                             className="group inline-flex items-center gap-2 text-ink text-sm"
                                         >
                                             <span className="link-underline">
-                                                {isWeb
-                                                    ? t(COPY.link_live, lang)
-                                                    : t(COPY.link, lang)}
+                                                {linkLabel}
                                             </span>
                                             <ArrowUpRight
                                                 size={14}
