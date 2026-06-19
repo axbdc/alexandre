@@ -310,7 +310,32 @@ export const PROJECTS = [
         subtitle: { PT: "Rich Media / HTML5", EN: "Rich Media / HTML5" },
         client: "World Sports Betting",
         year: "2026",
-        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=World+Cup+Predictor", // 📷 TROCAR
+        cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=World+Cup+Predictor", // 📷 TROCAR (capa que aparece na grelha)
+        // === PROTÓTIPO CLICÁVEL (tipo Marvel) ===
+        // Exporta cada ecrã do PSD como PNG, mete-os em frontend/public/rm/wsb/
+        // e troca os `src` abaixo por "/rm/wsb/1.png", etc.
+        // - width/height = dimensão real do RM (aqui 639x1136, o teu vertical).
+        // - Tocar no ecrã avança para o seguinte.
+        // - Para zonas clicáveis tipo Marvel, adiciona `hotspots` a um ecrã:
+        //     hotspots: [{ x: 12, y: 78, w: 76, h: 10, to: 2 }]
+        //   x/y/w/h em % do ecrã; `to` = índice do ecrã destino (começa em 0).
+        richmedia: {
+            width: 639,
+            height: 1136,
+            screens: [
+                {
+                    src: "https://placehold.co/639x1136/151515/FF460B?text=RM+Ecra+1%0A(toca)",
+                    // Exemplo de hotspot: zona em baixo que salta para o ecrã 3 (índice 2)
+                    hotspots: [{ x: 12, y: 80, w: 76, h: 10, to: 2 }],
+                },
+                {
+                    src: "https://placehold.co/639x1136/E2231A/FFFFFF?text=RM+Ecra+2",
+                },
+                {
+                    src: "https://placehold.co/639x1136/151515/FF460B?text=RM+Ecra+3",
+                },
+            ],
+        },
         summary: {
             PT: "Banner interativo HTML5 (rich media) para a campanha World Cup Predictor 2026.",
             EN: "Interactive HTML5 rich-media banner for the World Cup Predictor 2026 campaign.",
