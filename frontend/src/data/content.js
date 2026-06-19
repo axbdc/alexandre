@@ -311,22 +311,22 @@ export const PROJECTS = [
         client: "World Sports Betting",
         year: "2026",
         cover: "https://placehold.co/1200x900/14110f/F4F2EE?text=World+Cup+Predictor", // 📷 TROCAR (capa que aparece na grelha)
-        // === PROTÓTIPO CLICÁVEL (tipo Marvel) ===
+        // === PROTÓTIPO CLICÁVEL (tipo Marvel, dentro de um telemóvel fixo) ===
         // Exporta cada ecrã do PSD como PNG, mete-os em frontend/public/rm/wsb/
         // e troca os `src` abaixo por "/rm/wsb/1.png", etc.
-        // - width/height = dimensão real do RM (aqui 639x1136, o teu vertical).
         // - Tocar no ecrã avança para o seguinte.
+        // - fit: "contain" (default, com barras pretas em cima/baixo, tipo Marvel)
+        //        ou "cover" (preenche o ecrã do telemóvel).
         // - Para zonas clicáveis tipo Marvel, adiciona `hotspots` a um ecrã:
         //     hotspots: [{ x: 12, y: 78, w: 76, h: 10, to: 2 }]
-        //   x/y/w/h em % do ecrã; `to` = índice do ecrã destino (começa em 0).
+        //   x/y/w/h em % do ecrã do telemóvel; `to` = índice do ecrã destino (começa em 0).
         richmedia: {
-            width: 639,
-            height: 1136,
+            fit: "contain",
             screens: [
                 {
                     src: "https://placehold.co/639x1136/151515/FF460B?text=RM+Ecra+1%0A(toca)",
-                    // Exemplo de hotspot: zona em baixo que salta para o ecrã 3 (índice 2)
-                    hotspots: [{ x: 12, y: 80, w: 76, h: 10, to: 2 }],
+                    // Exemplo de hotspot: faixa em baixo que salta para o ecrã 3 (índice 2)
+                    hotspots: [{ x: 12, y: 80, w: 76, h: 8, to: 2 }],
                 },
                 {
                     src: "https://placehold.co/639x1136/E2231A/FFFFFF?text=RM+Ecra+2",
