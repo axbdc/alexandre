@@ -1,0 +1,412 @@
+// frontend/src/admin/AdminProjects.jsx
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import {
+    collection,
+    getDocs,
+    doc,
+    setDoc,
+    addDoc,
+    updateDoc,
+    deleteDoc,
+    query,
+    orderBy,
+} from "firebase/firestore";
+import { auth, db } from "@/lib/firebase";
+import { PROJECTS } from "@/data/content";
+
+const CATS = [
+    { id: "ar3d", label: "AR & 3D" },
+    { id: "graphic", label: "Design Gráfico" },
+    { id: "photo", label: "Fotografia" },
+    { id: "web", label: "Web" },
+    { id: "motion", label: "Motion & Rich Media" },
+];
+
+const L = (v, l) => (typeof v === "string" ? v : (v && v[l]) || "");
+
+// content.js -> documento Firestore (plano)
+const toDoc = (p, i) => ({
+    category: p.category || "web",
+    title_pt: L(p.title, "PT"),
+    title_en: L(p.title, "EN"),
+    subtitle_pt: L(p.subtitle, "PT"),
+    subtitle_en: L(p.subtitle, "EN"),
+    client: L(p.client, "PT") || "",
+    year: p.year || "",
+    summary_pt: L(p.summary, "PT"),
+    summary_en: L(p.summary, "EN"),
+    details_pt: p.details ? L(p.details, "PT") : "",
+    details_en: p.details ? L(p.details, "EN") : "",
+    cover: p.cover || "",
+    url: p.url || "",
+    tools: p.tools || [],
+    gallery: p.gallery && p.gallery.length > 1 ? p.gallery : [],
+    model_glb: p.model_glb || "",
+    model_usdz: p.model_usdz || "",
+    is_richmedia: !!(p.richmedia && p.richmedia.screens && p.richmedia.screens.length),
+    rm_fit: (p.richmedia && p.richmedia.fit) || "contain",
+    screens: (p.richmedia && p.richmedia.screens) || [],
+    sort_order: i,
+    published: true,
+});
+
+const emptyDoc = () => ({
+    category: "web",
+    title_pt: "",
+    title_en: "",
+    subtitle_pt: "",
+    subtitle_en: "",
+    client: "",
+    year: "",
+    summary_pt: "",
+    summary_en: "",
+    details_pt: "",
+    details_en: "",
+    cover: "",
+    url: "",
+    tools: [],
+    gallery: [],
+    model_glb: "",
+    model_usdz: "",
+    is_richmedia: false,
+    rm_fit: "contain",
+    screens: [],
+    sort_order: 0,
+    published: true,
+});
+
+const AdminProjects = () => {
+    const navigate = useNavigate();
+    const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [filter, setFilter] = useState("all");
+    const [editing, setEditing] = useState(null); // {id?, ...fields}
+    const [busy, setBusy] = useState(false);
+    const [msg, setMsg] = useState("");
+
+    const load = async () => {
+        setLoading(true);
+        const q = query(collection(db, "projects"), orderBy("sort_order"));
+        const snap = await getDocs(q);
+        setItems(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+        setLoading(false);
+    };
+
+    useEffect(() => {
+        load();
+    }, []);
+
+    const importDefaults = async () => {
+        if (!window.confirm("Importar os 18 projetos do site para a base de dados?"))
+            return;
+        setBusy(true);
+        setMsg("");
+        try {
+            for (let i = 0; i < PROJECTS.length; i++) {
+                const p = PROJECTS[i];
+                await setDoc(doc(db, "projects", p.id), toDoc(p, i));
+            }
+            setMsg("Projetos importados.");
+            await load();
+        } catch (e) {
+            setMsg("Erro a importar: " + e.message);
+        } finally {
+            setBusy(false);
+        }
+    };
+
+    const save = async () => {
+        setBusy(true);
+        setMsg("");
+        const { id, ...data } = editing;
+        try {
+            if (id) {
+                await updateDoc(doc(db, "projects", id), data);
+            } else {
+                data.sort_order = items.length;
+                await addDoc(collection(db, "projects"), data);
+            }
+            setEditing(null);
+            await load();
+        } catch (e) {
+            setMsg("Erro a guardar: " + e.message);
+        } finally {
+            setBusy(false);
+        }
+    };
+
+    const remove = async (it) => {
+        if (!window.confirm(`Apagar "${it.title_pt}"? Definitivo.`)) return;
+        await deleteDoc(doc(db, "projects", it.id));
+        await load();
+    };
+
+    const togglePublish = async (it) => {
+        await updateDoc(doc(db, "projects", it.id), { published: !it.published });
+        await load();
+    };
+
+    const logout = async () => {
+        await signOut(auth);
+        navigate("/admin/login", { replace: true });
+    };
+
+    const shown =
+        filter === "all" ? items : items.filter((i) => i.category === filter);
+
+    // ---------- EDITOR ----------
+    if (editing) {
+        const set = (k, v) => setEditing((e) => ({ ...e, [k]: v }));
+        const Field = ({ label, k, area }) => (
+            <label className="block mb-3">
+                <span className="overline text-mist">{label}</span>
+                {area ? (
+                    <textarea
+                        rows={4}
+                        value={editing[k] || ""}
+                        onChange={(e) => set(k, e.target.value)}
+                        className="w-full border border-hairline bg-bone px-3 py-2 mt-1 text-sm text-ink outline-none focus:border-ink"
+                    />
+                ) : (
+                    <input
+                        value={editing[k] || ""}
+                        onChange={(e) => set(k, e.target.value)}
+                        className="w-full border border-hairline bg-bone px-3 py-2 mt-1 text-sm text-ink outline-none focus:border-ink"
+                    />
+                )}
+            </label>
+        );
+
+        return (
+            <div className="min-h-screen bg-bone text-ink">
+                <header className="hairline-bottom flex items-center justify-between px-6 h-14">
+                    <span className="overline">
+                        {editing.id ? "Editar projeto" : "Novo projeto"}
+                    </span>
+                    <button
+                        onClick={() => setEditing(null)}
+                        className="text-xs tracking-[0.18em] uppercase text-mist hover:text-ink"
+                    >
+                        Cancelar
+                    </button>
+                </header>
+
+                <div className="max-w-2xl mx-auto px-6 py-8">
+                    <label className="block mb-3">
+                        <span className="overline text-mist">Categoria</span>
+                        <select
+                            value={editing.category}
+                            onChange={(e) => set("category", e.target.value)}
+                            className="w-full border border-hairline bg-bone px-3 py-2 mt-1 text-sm text-ink outline-none focus:border-ink"
+                        >
+                            {CATS.map((c) => (
+                                <option key={c.id} value={c.id}>
+                                    {c.label}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                        <Field label="Título (PT)" k="title_pt" />
+                        <Field label="Título (EN)" k="title_en" />
+                        <Field label="Subtítulo (PT)" k="subtitle_pt" />
+                        <Field label="Subtítulo (EN)" k="subtitle_en" />
+                        <Field label="Cliente" k="client" />
+                        <Field label="Ano" k="year" />
+                    </div>
+
+                    <Field label="Resumo (PT)" k="summary_pt" area />
+                    <Field label="Resumo (EN)" k="summary_en" area />
+                    <Field label="Descrição completa (PT)" k="details_pt" area />
+                    <Field label="Descrição completa (EN)" k="details_en" area />
+
+                    <Field label="Imagem de capa (URL)" k="cover" />
+                    <Field label="Link (site live / vídeo)" k="url" />
+
+                    <label className="block mb-3">
+                        <span className="overline text-mist">
+                            Ferramentas (separadas por vírgula)
+                        </span>
+                        <input
+                            value={(editing.tools || []).join(", ")}
+                            onChange={(e) =>
+                                set(
+                                    "tools",
+                                    e.target.value
+                                        .split(",")
+                                        .map((s) => s.trim())
+                                        .filter(Boolean),
+                                )
+                            }
+                            className="w-full border border-hairline bg-bone px-3 py-2 mt-1 text-sm text-ink outline-none focus:border-ink"
+                        />
+                    </label>
+
+                    <label className="block mb-3">
+                        <span className="overline text-mist">
+                            Galeria (um URL por linha)
+                        </span>
+                        <textarea
+                            rows={3}
+                            value={(editing.gallery || []).join("\n")}
+                            onChange={(e) =>
+                                set(
+                                    "gallery",
+                                    e.target.value
+                                        .split("\n")
+                                        .map((s) => s.trim())
+                                        .filter(Boolean),
+                                )
+                            }
+                            className="w-full border border-hairline bg-bone px-3 py-2 mt-1 text-sm text-ink outline-none focus:border-ink"
+                        />
+                    </label>
+
+                    <label className="flex items-center gap-2 mb-6 text-sm">
+                        <input
+                            type="checkbox"
+                            checked={!!editing.published}
+                            onChange={(e) => set("published", e.target.checked)}
+                        />
+                        Publicado (visível no site)
+                    </label>
+
+                    {msg ? (
+                        <div className="text-sm text-terracotta mb-3">{msg}</div>
+                    ) : null}
+
+                    <button
+                        onClick={save}
+                        disabled={busy}
+                        className="bg-ink text-bone px-6 py-2.5 text-xs tracking-[0.18em] uppercase hover:bg-terracotta transition-colors disabled:opacity-50"
+                    >
+                        {busy ? "A guardar…" : "Guardar"}
+                    </button>
+
+                    <p className="text-[12px] text-mist mt-6">
+                        Imagens: por agora cola o URL (ex.: thum.io ou Cloudinary).
+                        O upload direto no admin e o editor de ecrãs/hotspots do
+                        rich media chegam no passo seguinte.
+                    </p>
+                </div>
+            </div>
+        );
+    }
+
+    // ---------- LISTA ----------
+    return (
+        <div className="min-h-screen bg-bone text-ink">
+            <header className="hairline-bottom flex items-center justify-between px-6 h-14">
+                <span className="overline">Portfólio — Projetos</span>
+                <button
+                    onClick={logout}
+                    className="text-xs tracking-[0.18em] uppercase text-mist hover:text-ink"
+                >
+                    Sair
+                </button>
+            </header>
+
+            <div className="max-w-3xl mx-auto px-6 py-8">
+                {msg ? (
+                    <div className="text-sm text-graphite mb-4">{msg}</div>
+                ) : null}
+
+                {!loading && items.length === 0 ? (
+                    <div className="border border-hairline bg-white p-6 mb-8 text-center">
+                        <p className="text-sm text-graphite mb-4">
+                            A base de dados está vazia. Importa os teus 18
+                            projetos do site para começares.
+                        </p>
+                        <button
+                            onClick={importDefaults}
+                            disabled={busy}
+                            className="bg-ink text-bone px-6 py-2.5 text-xs tracking-[0.18em] uppercase hover:bg-terracotta transition-colors disabled:opacity-50"
+                        >
+                            {busy ? "A importar…" : "Importar projetos do site"}
+                        </button>
+                    </div>
+                ) : null}
+
+                <div className="flex items-center justify-between mb-4">
+                    <div className="flex flex-wrap gap-2 text-xs">
+                        <button
+                            onClick={() => setFilter("all")}
+                            className={`px-3 py-1 border ${filter === "all" ? "border-ink text-ink" : "border-hairline text-mist"}`}
+                        >
+                            Todos
+                        </button>
+                        {CATS.map((c) => (
+                            <button
+                                key={c.id}
+                                onClick={() => setFilter(c.id)}
+                                className={`px-3 py-1 border ${filter === c.id ? "border-ink text-ink" : "border-hairline text-mist"}`}
+                            >
+                                {c.label}
+                            </button>
+                        ))}
+                    </div>
+                    <button
+                        onClick={() => setEditing(emptyDoc())}
+                        className="bg-ink text-bone px-4 py-2 text-xs tracking-[0.18em] uppercase hover:bg-terracotta transition-colors"
+                    >
+                        + Novo
+                    </button>
+                </div>
+
+                {loading ? (
+                    <div className="text-sm text-mist">A carregar…</div>
+                ) : (
+                    <ul className="divide-y divide-hairline border border-hairline bg-white">
+                        {shown.map((it) => (
+                            <li
+                                key={it.id}
+                                className="flex items-center justify-between px-4 py-3"
+                            >
+                                <div>
+                                    <div className="text-sm text-ink">
+                                        {it.title_pt || "(sem título)"}
+                                        {!it.published ? (
+                                            <span className="ml-2 text-[11px] text-mist">
+                                                (rascunho)
+                                            </span>
+                                        ) : null}
+                                    </div>
+                                    <div className="text-[12px] text-mist">
+                                        {CATS.find((c) => c.id === it.category)
+                                            ?.label || it.category}
+                                        {it.client ? ` · ${it.client}` : ""}
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3 text-xs">
+                                    <button
+                                        onClick={() => setEditing(it)}
+                                        className="link-underline text-ink"
+                                    >
+                                        Editar
+                                    </button>
+                                    <button
+                                        onClick={() => togglePublish(it)}
+                                        className="text-mist hover:text-ink"
+                                    >
+                                        {it.published ? "Despublicar" : "Publicar"}
+                                    </button>
+                                    <button
+                                        onClick={() => remove(it)}
+                                        className="text-mist hover:text-terracotta"
+                                    >
+                                        Apagar
+                                    </button>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
+        </div>
+    );
+};
+
+export default AdminProjects;
