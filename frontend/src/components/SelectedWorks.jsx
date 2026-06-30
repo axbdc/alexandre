@@ -1,7 +1,8 @@
 import React, { useMemo, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLang, t } from "../context/LanguageContext";
-import { PROJECTS, CATEGORIES, SECTION_LABELS } from "../data/content";
+import { CATEGORIES, SECTION_LABELS } from "../data/content";
+import useProjects from "../hooks/useProjects";
 import useReveal from "../hooks/useReveal";
 import { ArrowUpRight } from "lucide-react";
 import ProjectModal from "./ProjectModal";
@@ -10,26 +11,27 @@ const localize = (v, lang) => (typeof v === "string" ? v : t(v, lang));
 
 const SelectedWorks = () => {
     const { lang } = useLang();
-    const rootRef = useReveal([lang]);
+    const { projects } = useProjects();
+    const rootRef = useReveal([lang, projects]);
     const [active, setActive] = useState("all");
     const [openId, setOpenId] = useState(null);
 
     const filtered = useMemo(
         () =>
             active === "all"
-                ? PROJECTS
-                : PROJECTS.filter((p) => p.category === active),
-        [active],
+                ? projects
+                : projects.filter((p) => p.category === active),
+        [active, projects],
     );
 
     const counts = useMemo(() => {
-        const out = { all: PROJECTS.length };
+        const out = { all: projects.length };
         for (const c of CATEGORIES) {
             if (c.id === "all") continue;
-            out[c.id] = PROJECTS.filter((p) => p.category === c.id).length;
+            out[c.id] = projects.filter((p) => p.category === c.id).length;
         }
         return out;
-    }, []);
+    }, [projects]);
 
     const openIndex = useMemo(
         () => filtered.findIndex((p) => p.id === openId),
@@ -41,14 +43,12 @@ const SelectedWorks = () => {
     const close = useCallback(() => setOpenId(null), []);
     const goPrev = useCallback(() => {
         if (!filtered.length) return;
-        const next =
-            openIndex <= 0 ? filtered.length - 1 : openIndex - 1;
+        const next = openIndex <= 0 ? filtered.length - 1 : openIndex - 1;
         setOpenId(filtered[next].id);
     }, [filtered, openIndex]);
     const goNext = useCallback(() => {
         if (!filtered.length) return;
-        const next =
-            openIndex >= filtered.length - 1 ? 0 : openIndex + 1;
+        const next = openIndex >= filtered.length - 1 ? 0 : openIndex + 1;
         setOpenId(filtered[next].id);
     }, [filtered, openIndex]);
 
@@ -78,7 +78,7 @@ const SelectedWorks = () => {
                             {String(filtered.length).padStart(2, "0")}
                             <span className="text-mist mx-2">/</span>
                             <span className="text-mist">
-                                {String(PROJECTS.length).padStart(2, "0")}
+                                {String(projects.length).padStart(2, "0")}
                             </span>
                         </div>
                     </div>
