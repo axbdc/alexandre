@@ -11,7 +11,7 @@ import Experience from "@/components/Experience";
 import Contact from "@/components/Contact";
 import CustomCursor from "@/components/CustomCursor";
 import AdminLogin from "@/admin/AdminLogin";
-import AdminHome from "@/admin/AdminHome";
+import AdminProjects from "@/admin/AdminProjects";
 import RequireAuth from "@/admin/RequireAuth";
 
 const Portfolio = () => {
@@ -49,7 +49,7 @@ function App() {
                         path="/admin"
                         element={
                             <RequireAuth>
-                                <AdminHome />
+                                <AdminProjects />
                             </RequireAuth>
                         }
                     />
