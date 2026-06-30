@@ -10,10 +10,12 @@ import AboutServices from "@/components/AboutServices";
 import Experience from "@/components/Experience";
 import Contact from "@/components/Contact";
 import CustomCursor from "@/components/CustomCursor";
+import AdminLogin from "@/admin/AdminLogin";
+import AdminHome from "@/admin/AdminHome";
+import RequireAuth from "@/admin/RequireAuth";
 
 const Portfolio = () => {
     useEffect(() => {
-        // Smooth-scroll for anchor jumps (CSS native is enough; ensure html element)
         document.documentElement.style.scrollBehavior = "smooth";
         return () => {
             document.documentElement.style.scrollBehavior = "";
@@ -42,6 +44,15 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Portfolio />} />
+                    <Route path="/admin/login" element={<AdminLogin />} />
+                    <Route
+                        path="/admin"
+                        element={
+                            <RequireAuth>
+                                <AdminHome />
+                            </RequireAuth>
+                        }
+                    />
                     <Route path="*" element={<Portfolio />} />
                 </Routes>
             </BrowserRouter>
